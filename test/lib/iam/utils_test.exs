@@ -1,4 +1,4 @@
-defmodule ExAws.IAM.UtilsTest do
+defmodule ExAws.Iam.UtilsTest do
   use ExUnit.Case
-  doctest ExAws.IAM.Utils
+  doctest ExAws.Iam.Utils
 end
