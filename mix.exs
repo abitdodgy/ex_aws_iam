@@ -1,4 +1,4 @@
-defmodule IAM.MixProject do
+defmodule Iam.MixProject do
   use Mix.Project
 
   def project do
@@ -21,7 +21,9 @@ defmodule IAM.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_aws, "~> 2.0"}
+      {:ex_aws, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 end

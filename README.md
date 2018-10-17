@@ -2,7 +2,22 @@
 
 This is an IAM service module for [ExAws](https://github.com/ex-aws/ex_aws).
 
-This is a work in progress.
+This is a work in progress and the API may change. The following operations are available:
+
+### User
+
+  * ListUsers
+  * CreateUser
+  * UpdateUser
+  * DeleteUser
+
+### AccessKey
+
+  * ListAccessKeys
+  * GetAccessKeyLastUsed
+  * GetAccessKey
+  * UpdateAccessKey
+  * DeleteAccessKey
 
 ## Installation
 

@@ -1,4 +1,4 @@
-defmodule ExAws.IAM.Utils do
+defmodule ExAws.Iam.Utils do
   @moduledoc false
 
   @doc """
@@ -16,7 +16,7 @@ defmodule ExAws.IAM.Utils do
 
   ## Examples
 
-      iex> ExAws.IAM.Utils.opts_to_params(%{username: "UserName"}, [username: "foo"])
+      iex> ExAws.Iam.Utils.opts_to_params(%{username: "UserName"}, [username: "foo"])
       %{"UserName" => "foo"}
 
   """
