@@ -13,36 +13,37 @@ defmodule ExAws.IamTest do
       max_items: 50,
       path_prefix: "/prefix"
     ]
-    expected =
-      %ExAws.Operation.Query{
-        action: "ListUsers",
-        params: %{
-          "Action" => "ListUsers",
-          "Marker" => "abc",
-          "MaxItems" => 50,
-          "PathPrefix" => "/prefix",
-          "Version" => "2010-05-08"
-        },
-        parser: &Parsers.User.list/2,
-        path: "/",
-        service: :iam
-      }
+
+    expected = %ExAws.Operation.Query{
+      action: "ListUsers",
+      params: %{
+        "Action" => "ListUsers",
+        "Marker" => "abc",
+        "MaxItems" => 50,
+        "PathPrefix" => "/prefix",
+        "Version" => "2010-05-08"
+      },
+      parser: &Parsers.User.list/2,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.list_users(opts) == expected
   end
 
   test "get_user/1 returns an ExAws GetUser op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "GetUser",
-        params: %{
-          "Action" => "GetUser",
-          "UserName" => "foo",
-          "Version" => "2010-05-08"
-        },
-        parser: &ExAws.Iam.Parsers.User.get/2,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "GetUser",
+      params: %{
+        "Action" => "GetUser",
+        "UserName" => "foo",
+        "Version" => "2010-05-08"
+      },
+      parser: &ExAws.Iam.Parsers.User.get/2,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.get_user("foo") == expected
   end
 
@@ -51,20 +52,21 @@ defmodule ExAws.IamTest do
       path: "/my/path",
       permissions_boundary: "foo"
     ]
-    expected =
-      %ExAws.Operation.Query{
-        action: "CreateUser",
-        params: %{
-          "Action" => "CreateUser",
-          "Path" => "/my/path",
-          "PermissionsBoundary" => "foo",
-          "UserName" => "mo",
-          "Version" => "2010-05-08"
-        },
-        parser: &Parsers.User.create/2,
-        path: "/my/path",
-        service: :iam
-      }
+
+    expected = %ExAws.Operation.Query{
+      action: "CreateUser",
+      params: %{
+        "Action" => "CreateUser",
+        "Path" => "/my/path",
+        "PermissionsBoundary" => "foo",
+        "UserName" => "mo",
+        "Version" => "2010-05-08"
+      },
+      parser: &Parsers.User.create/2,
+      path: "/my/path",
+      service: :iam
+    }
+
     assert Iam.create_user("mo", opts) == expected
   end
 
@@ -74,117 +76,117 @@ defmodule ExAws.IamTest do
       new_user_name: "new"
     ]
 
-    expected =
-      %ExAws.Operation.Query{
-        action: "UpdateUser",
-        params: %{
-          "Action" => "UpdateUser",
-          "NewPath" => "/new/path",
-          "NewUserName" => "new",
-          "UserName" => "mo",
-          "Version" => "2010-05-08"
-        },
-        parser: nil,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "UpdateUser",
+      params: %{
+        "Action" => "UpdateUser",
+        "NewPath" => "/new/path",
+        "NewUserName" => "new",
+        "UserName" => "mo",
+        "Version" => "2010-05-08"
+      },
+      parser: nil,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.update_user("mo", opts) == expected
   end
 
   test "delete_user/1 returns an ExAws DeleteUser op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "DeleteUser",
-        params: %{
-          "Action" => "DeleteUser",
-          "UserName" => "mo",
-          "Version" => "2010-05-08"
-        },
-        parser: nil,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "DeleteUser",
+      params: %{
+        "Action" => "DeleteUser",
+        "UserName" => "mo",
+        "Version" => "2010-05-08"
+      },
+      parser: nil,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.delete_user("mo") == expected
   end
 
   test "list_access_keys/0 returns an ExAws ListAccessKeys op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "ListAccessKeys",
-        params: %{
-          "Action" => "ListAccessKeys",
-          "Version" => "2010-05-08"
-        },
-        parser: &Parsers.AccessKey.list/2,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "ListAccessKeys",
+      params: %{
+        "Action" => "ListAccessKeys",
+        "Version" => "2010-05-08"
+      },
+      parser: &Parsers.AccessKey.list/2,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.list_access_keys() == expected
   end
 
   test "get_access_key_last_used/1 returns an ExAws GetAccessKeyLastUsed op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "GetAccessKeyLastUsed",
-        params: %{
-          "AccessKeyId" => "key",
-          "Action" => "GetAccessKeyLastUsed",
-          "Version" => "2010-05-08"
-        },
-        parser: &Parsers.AccessKey.get_last_used/2,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "GetAccessKeyLastUsed",
+      params: %{
+        "AccessKeyId" => "key",
+        "Action" => "GetAccessKeyLastUsed",
+        "Version" => "2010-05-08"
+      },
+      parser: &Parsers.AccessKey.get_last_used/2,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.get_access_key_last_used("key") == expected
   end
 
   test "create_access_key/1 returns an ExAws CreateAccessKey op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "CreateAccessKey",
-        params: %{
-          "Action" => "CreateAccessKey",
-          "UserName" => "username",
-          "Version" => "2010-05-08"
-        },
-        parser: &Parsers.AccessKey.create/2,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "CreateAccessKey",
+      params: %{
+        "Action" => "CreateAccessKey",
+        "UserName" => "username",
+        "Version" => "2010-05-08"
+      },
+      parser: &Parsers.AccessKey.create/2,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.create_access_key("username") == expected
   end
 
   test "update_access_key/1 returns an ExAws UpdateAccessKey op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "UpdateAccessKey",
-        params: %{
-          "AccessKeyId" => "key_id",
-          "Action" => "UpdateAccessKey",
-          "Status" => "username",
-          "Version" => "2010-05-08"
-        },
-        parser: nil,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "UpdateAccessKey",
+      params: %{
+        "AccessKeyId" => "key_id",
+        "Action" => "UpdateAccessKey",
+        "Status" => "username",
+        "Version" => "2010-05-08"
+      },
+      parser: nil,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.update_access_key("key_id", "username") == expected
   end
 
   test "delete_access_key/1 returns an ExAws DeleteAccessKey op struct" do
-    expected =
-      %ExAws.Operation.Query{
-        action: "DeleteAccessKey",
-        params: %{
-          "AccessKeyId" => "key_id",
-          "Action" => "DeleteAccessKey",
-          "UserName" => "username",
-          "Version" => "2010-05-08"
-        },
-        parser: nil,
-        path: "/",
-        service: :iam
-      }
+    expected = %ExAws.Operation.Query{
+      action: "DeleteAccessKey",
+      params: %{
+        "AccessKeyId" => "key_id",
+        "Action" => "DeleteAccessKey",
+        "UserName" => "username",
+        "Version" => "2010-05-08"
+      },
+      parser: nil,
+      path: "/",
+      service: :iam
+    }
+
     assert Iam.delete_access_key("key_id", "username") == expected
   end
 
@@ -192,111 +194,125 @@ defmodule ExAws.IamTest do
     xml = read_file("user", "get")
     response = Parsers.User.get({:ok, %{body: xml, status_code: 200}}, "GetUser")
 
-    {:ok, %{
-      body: %{
-        get_user_result: %{
-          user: user
-    }}}} = response
+    {:ok,
+     %{
+       body: %{
+         get_user_result: %{
+           user: user
+         }
+       }
+     }} = response
 
     assert Iam.to_user(response) ==
-      %User{
-        arn: user[:arn],
-        create_date: user[:create_date],
-        path: user[:path],
-        username: user[:username],
-        user_id: user[:user_id]
-      }
+             %User{
+               arn: user[:arn],
+               create_date: user[:create_date],
+               path: user[:path],
+               username: user[:username],
+               user_id: user[:user_id]
+             }
   end
 
   test "to_user/1 converts CreateUser result into a User struct" do
     xml = read_file("user", "create")
     response = Parsers.User.create({:ok, %{body: xml, status_code: 200}}, "CreateUser")
 
-    {:ok, %{
-      body: %{
-        create_user_result: %{
-          user: user
-    }}}} = response
+    {:ok,
+     %{
+       body: %{
+         create_user_result: %{
+           user: user
+         }
+       }
+     }} = response
 
     assert Iam.to_user(response) ==
-      %User{
-        arn: user[:arn],
-        create_date: user[:create_date],
-        path: user[:path],
-        username: user[:username],
-        user_id: user[:user_id]
-      }
+             %User{
+               arn: user[:arn],
+               create_date: user[:create_date],
+               path: user[:path],
+               username: user[:username],
+               user_id: user[:user_id]
+             }
   end
 
   test "to_user/1 converts ListUsers result into a list of User structs" do
     xml = read_file("user", "list")
     response = Parsers.User.list({:ok, %{body: xml, status_code: 200}}, "ListUsers")
 
-    {:ok, %{
-      body: %{
-        list_users_result: %{
-          users: [user, user_2]
-    }}}} = response
+    {:ok,
+     %{
+       body: %{
+         list_users_result: %{
+           users: [user, user_2]
+         }
+       }
+     }} = response
 
     assert Iam.to_user(response) == [
-      %User{
-        arn: user[:arn],
-        create_date: user[:create_date],
-        path: user[:path],
-        username: user[:username],
-        user_id: user[:user_id]
-      },
-      %User{
-        arn: user_2[:arn],
-        create_date: user_2[:create_date],
-        path: user_2[:path],
-        user_id: user_2[:user_id],
-        username: user_2[:username]
-      }
-    ]
+             %User{
+               arn: user[:arn],
+               create_date: user[:create_date],
+               path: user[:path],
+               username: user[:username],
+               user_id: user[:user_id]
+             },
+             %User{
+               arn: user_2[:arn],
+               create_date: user_2[:create_date],
+               path: user_2[:path],
+               user_id: user_2[:user_id],
+               username: user_2[:username]
+             }
+           ]
   end
 
   test "to_access_key/1 converts ListAccessKeys result into a list of AccessKey structs" do
     xml = read_file("access_key", "list")
     response = Parsers.AccessKey.list({:ok, %{body: xml, status_code: 200}}, "ListAccessKeys")
 
-    {:ok, %{
-      body: %{
-        list_access_keys_result: %{
-          access_key_metadata: [access_key]
-        }
-    }}} = response
+    {:ok,
+     %{
+       body: %{
+         list_access_keys_result: %{
+           access_key_metadata: [access_key]
+         }
+       }
+     }} = response
 
     assert Iam.to_access_key(response) == [
-      %AccessKey{
-        access_key_id: access_key[:access_key_id],
-        access_key_selector: access_key[:access_key_selector],
-        create_date: access_key[:create_date],
-        secret_access_key: access_key[:secret_access_key],
-        status: access_key[:status],
-        username: access_key[:username]
-      }
-    ]
+             %AccessKey{
+               access_key_id: access_key[:access_key_id],
+               access_key_selector: access_key[:access_key_selector],
+               create_date: access_key[:create_date],
+               secret_access_key: access_key[:secret_access_key],
+               status: access_key[:status],
+               username: access_key[:username]
+             }
+           ]
   end
 
   test "to_access_key/1 converts CreateAccessKey result into an AccessKey struct" do
     xml = read_file("access_key", "create")
     response = Parsers.AccessKey.create({:ok, %{body: xml, status_code: 200}}, "CreateAccessKey")
 
-    {:ok, %{
-      body: %{
-        create_access_key_result: %{
-          access_key: access_key
-    }}}} = response
+    {:ok,
+     %{
+       body: %{
+         create_access_key_result: %{
+           access_key: access_key
+         }
+       }
+     }} = response
 
     assert Iam.to_access_key(response) ==
-      %AccessKey{
-        access_key_id: access_key[:access_key_id],
-        access_key_selector: access_key[:access_key_selector],
-        create_date: access_key[:create_date],
-        secret_access_key: access_key[:secret_access_key],
-        status: access_key[:status],
-        username: access_key[:username]
-      }
+             %AccessKey{
+               access_key_id: access_key[:access_key_id],
+               access_key_selector: access_key[:access_key_selector],
+               create_date: access_key[:create_date],
+               secret_access_key: access_key[:secret_access_key],
+               status: access_key[:status],
+               username: access_key[:username]
+             }
   end
 end

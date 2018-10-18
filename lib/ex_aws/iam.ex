@@ -71,8 +71,8 @@ defmodule ExAws.Iam do
   """
   def get_user(username, opts \\ []) do
     :get_user
-    |> to_params(opts, [user_name: username])
-    |> to_op(parser: &Parsers.User.get/2)    
+    |> to_params(opts, user_name: username)
+    |> to_op(parser: &Parsers.User.get/2)
   end
 
   @doc """
@@ -94,7 +94,7 @@ defmodule ExAws.Iam do
   """
   def create_user(username, opts \\ []) do
     :create_user
-    |> to_params(opts, [user_name: username])
+    |> to_params(opts, user_name: username)
     |> to_op(parser: &Parsers.User.create/2)
   end
 
@@ -119,7 +119,7 @@ defmodule ExAws.Iam do
   """
   def update_user(username, opts \\ []) do
     :update_user
-    |> to_params(opts, [user_name: username])
+    |> to_params(opts, user_name: username)
     |> to_op()
   end
 
@@ -137,7 +137,7 @@ defmodule ExAws.Iam do
   """
   def delete_user(username, opts \\ []) do
     :delete_user
-    |> to_params(opts, [user_name: username])
+    |> to_params(opts, user_name: username)
     |> to_op()
   end
 
@@ -176,7 +176,7 @@ defmodule ExAws.Iam do
   """
   def get_access_key_last_used(access_key_id, opts \\ []) do
     :get_access_key_last_used
-    |> to_params(opts, [access_key_id: access_key_id])
+    |> to_params(opts, access_key_id: access_key_id)
     |> to_op(parser: &Parsers.AccessKey.get_last_used/2)
   end
 
@@ -194,9 +194,9 @@ defmodule ExAws.Iam do
   """
   def create_access_key(username, opts \\ []) do
     :create_access_key
-    |> to_params(opts, [user_name: username])
+    |> to_params(opts, user_name: username)
     |> to_op(parser: &Parsers.AccessKey.create/2)
-  end  
+  end
 
   @doc """
   Creates an ExAws operation for an `UpdateAccessKey` IAM request.
@@ -217,7 +217,7 @@ defmodule ExAws.Iam do
   """
   def update_access_key(access_key_id, status, opts \\ []) do
     :update_access_key
-    |> to_params(opts, [access_key_id: access_key_id, status: status])
+    |> to_params(opts, access_key_id: access_key_id, status: status)
     |> to_op()
   end
 
@@ -237,7 +237,7 @@ defmodule ExAws.Iam do
   """
   def delete_access_key(access_key_id, username, opts \\ []) do
     :delete_access_key
-    |> to_params(opts, [access_key_id: access_key_id, user_name: username])
+    |> to_params(opts, access_key_id: access_key_id, user_name: username)
     |> to_op()
   end
 

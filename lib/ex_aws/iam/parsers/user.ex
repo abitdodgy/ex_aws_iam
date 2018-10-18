@@ -29,8 +29,10 @@ defmodule ExAws.Iam.Parsers.User do
         ],
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def list(resp, _), do: resp
 
   @doc """
@@ -42,12 +44,15 @@ defmodule ExAws.Iam.Parsers.User do
       xml
       |> SweetXml.xpath(~x"//GetUserResponse",
         get_user_result: [
-          ~x"//GetUserResult", user: user_path()
+          ~x"//GetUserResult",
+          user: user_path()
         ],
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def get(resp, _), do: resp
 
   @doc """
@@ -59,12 +64,15 @@ defmodule ExAws.Iam.Parsers.User do
       xml
       |> SweetXml.xpath(~x"//CreateUserResponse",
         create_user_result: [
-          ~x"//CreateUserResult", user: user_path()
+          ~x"//CreateUserResult",
+          user: user_path()
         ],
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def create(resp, _), do: resp
 
   @doc """
@@ -77,8 +85,10 @@ defmodule ExAws.Iam.Parsers.User do
       |> SweetXml.xpath(~x"//UpdateUserResponse",
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def update(resp, _), do: resp
 
   @doc """
@@ -91,17 +101,21 @@ defmodule ExAws.Iam.Parsers.User do
       |> SweetXml.xpath(~x"//DeleteUserResponse",
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def delete(resp, _), do: resp
 
   defp user_path do
-    [~x"//User",
+    [
+      ~x"//User",
       path: ~x"./Path/text()"s,
       username: ~x"./UserName/text()"s,
       arn: ~x"./Arn/text()"s,
       user_id: ~x"./UserId/text()"s,
-      create_date: ~x"./CreateDate/text()"s]
+      create_date: ~x"./CreateDate/text()"s
+    ]
   end
 
   defp response_metadata_path do

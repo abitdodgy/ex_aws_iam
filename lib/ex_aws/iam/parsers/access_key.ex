@@ -28,8 +28,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
         ],
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def list(resp, _), do: resp
 
   @doc """
@@ -52,8 +54,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
         ],
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def get_last_used(resp, _), do: resp
 
   @doc """
@@ -78,8 +82,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
         ],
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def create(resp, _), do: resp
 
   @doc """
@@ -92,8 +98,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
       |> SweetXml.xpath(~x"//UpdateAccessKeyResponse",
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def update(resp, _), do: resp
 
   @doc """
@@ -106,8 +114,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
       |> SweetXml.xpath(~x"//DeleteAccessKeyResponse",
         response_metadata: response_metadata_path()
       )
+
     {:ok, %{resp | body: parsed_body}}
   end
+
   def delete(resp, _), do: resp
 
   defp response_metadata_path do

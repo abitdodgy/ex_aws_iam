@@ -14,12 +14,12 @@ defmodule ExAws.Iam.User do
   defstruct arn: nil, create_date: nil, path: "/", username: nil, user_id: nil
 
   @type t :: %ExAws.Iam.User{
-    arn: String.t,
-    create_date: String.t,
-    path: String.t,
-    user_id: String.t,
-    username: String.t
-  }
+          arn: String.t(),
+          create_date: String.t(),
+          path: String.t(),
+          user_id: String.t(),
+          username: String.t()
+        }
 
   def new(%{get_user_result: %{user: user}}) do
     user_to_struct(user)
@@ -42,6 +42,6 @@ defmodule ExAws.Iam.User do
       path: user[:path],
       username: user[:username],
       user_id: user[:user_id]
-    }    
+    }
   end
 end
