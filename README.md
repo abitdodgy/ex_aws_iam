@@ -16,7 +16,7 @@ This is a work in progress and the API may change. The following operations are 
 
   * ListAccessKeys
   * GetAccessKeyLastUsed
-  * GetAccessKey
+  * CreateAccessKey
   * UpdateAccessKey
   * DeleteAccessKey
 
@@ -28,7 +28,7 @@ by adding `ex_aws_iam` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-  	{:ex_aws, "~> 2.0"},
+    {:ex_aws, "~> 2.0"},
     {:ex_aws_iam, "~> 0.1.0"}
   ]
 end
