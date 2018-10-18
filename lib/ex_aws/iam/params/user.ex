@@ -8,6 +8,7 @@ defmodule ExAws.Iam.Params.User do
 
   @actions_map %{
     list: "ListUsers",
+    get: "GetUser",
     create: "CreateUser",
     update: "UpdateUser",
     delete: "DeleteUser"
@@ -50,6 +51,9 @@ defmodule ExAws.Iam.Params.User do
 
   @list_params ~w[marker max_items path_prefix]a
   defp params_for(:list), do: @list_params
+
+  @get_params ~w[username]a
+  defp params_for(:get), do: @get_params
 
   @create_params ~w[path permissions_boundary username]a
   defp params_for(:create), do: @create_params

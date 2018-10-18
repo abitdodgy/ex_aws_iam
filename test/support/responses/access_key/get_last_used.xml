@@ -1,0 +1,13 @@
+<GetAccessKeyLastUsedResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+    <GetAccessKeyLastUsedResult>
+        <AccessKeyLastUsed>
+            <LastUsedDate>2018-10-17T13:43:00Z</LastUsedDate>
+            <Region>us-east-1</Region>
+            <ServiceName>iam</ServiceName>
+        </AccessKeyLastUsed>
+        <UserName>bucket_admin</UserName>
+    </GetAccessKeyLastUsedResult>
+    <ResponseMetadata>
+        <RequestId>523b4eec-d213-11e8-a831-bf9f1ef556f4</RequestId>
+    </ResponseMetadata>
+</GetAccessKeyLastUsedResponse>

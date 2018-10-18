@@ -28,6 +28,22 @@ defmodule ExAws.IamTest do
     assert Iam.list_users(opts) == expected
   end
 
+  test "get_user/1 returns an ExAws GetUser op struct" do
+    expected =
+      %ExAws.Operation.Query{
+        action: "GetUser",
+        params: %{
+          "Action" => "GetUser",
+          "UserName" => "foo",
+          "Version" => "2010-05-08"
+        },
+        parser: &ExAws.Iam.Parsers.User.get/2,
+        path: "/",
+        service: :iam
+      }
+    assert Iam.get_user("foo") == expected
+  end
+
   test "create_user/1 returns an ExAws CreateUser op struct" do
     opts = [
       path: "/my/path",

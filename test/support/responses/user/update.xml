@@ -1,0 +1,5 @@
+<UpdateUserResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+    <ResponseMetadata>
+        <RequestId>95dc0a83-d212-11e8-adf2-fb1dda9ce0ce</RequestId>
+    </ResponseMetadata>
+</UpdateUserResponse>

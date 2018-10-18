@@ -1,0 +1,5 @@
+<DeleteAccessKeyResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+    <ResponseMetadata>
+        <RequestId>83a816bf-d214-11e8-ae70-8d0f09bb39be</RequestId>
+    </ResponseMetadata>
+</DeleteAccessKeyResponse>

@@ -1,0 +1,14 @@
+<CreateUserResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+    <CreateUserResult>
+        <User>
+            <Path>/</Path>
+            <UserName>foo</UserName>
+            <Arn>arn:aws:iam::085326204011:user/foo</Arn>
+            <UserId>AIDAJMIUVQAU2TW666HH2</UserId>
+            <CreateDate>2018-10-17T13:36:28Z</CreateDate>
+        </User>
+    </CreateUserResult>
+    <ResponseMetadata>
+        <RequestId>a68a2b7c-d211-11e8-9fb2-3f17dd67bd9b</RequestId>
+    </ResponseMetadata>
+</CreateUserResponse>

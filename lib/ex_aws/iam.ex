@@ -36,6 +36,26 @@ defmodule ExAws.Iam do
   end
 
   @doc """
+  Creates an ExAws operation for a [`GetUser`][1] IAM request.
+
+  ## Parameters
+
+    * `username` - The name of the user to return.
+
+  ## Options
+
+  See shared options in moduledoc.
+
+  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html
+
+  """
+  def get_user(username, opts \\ []) do
+    :get
+    |> Params.User.new([username: username] ++ opts)
+    |> to_op(parser: &Parsers.User.get/2)    
+  end
+
+  @doc """
   Creates an ExAws operation for a [`CreateUser`][1] IAM request.
 
   ## Parameters

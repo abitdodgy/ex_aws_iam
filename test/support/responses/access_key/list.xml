@@ -1,0 +1,16 @@
+<ListAccessKeysResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+    <ListAccessKeysResult>
+        <IsTruncated>false</IsTruncated>
+        <AccessKeyMetadata>
+            <member>
+                <AccessKeyId>AKIAIUOHJT6CXCJW43DQ</AccessKeyId>
+                <UserName>bucket_admin</UserName>
+                <CreateDate>2018-10-16T23:58:20Z</CreateDate>
+                <Status>Active</Status>
+            </member>
+        </AccessKeyMetadata>
+    </ListAccessKeysResult>
+    <ResponseMetadata>
+        <RequestId>f4db0a12-d212-11e8-a23b-47700e6bdeb6</RequestId>
+    </ResponseMetadata>
+</ListAccessKeysResponse>
