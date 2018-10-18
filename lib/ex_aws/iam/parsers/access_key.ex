@@ -56,6 +56,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
   end
   def get_last_used(resp, _), do: resp
 
+  @doc """
+  Parses the XML response of an IAM `CreateAccessKey` request.
+
+  """
   def create({:ok, %{body: xml, status_code: status} = resp}, _) when status in 200..299 do
     parsed_body =
       xml
@@ -77,6 +81,34 @@ defmodule ExAws.Iam.Parsers.AccessKey do
     {:ok, %{resp | body: parsed_body}}
   end
   def create(resp, _), do: resp
+
+  @doc """
+  Parses the XML response of an IAM `UpdateAccessKey` request.
+
+  """
+  def update({:ok, %{body: xml, status_code: status} = resp}, _) when status in 200..299 do
+    parsed_body =
+      xml
+      |> SweetXml.xpath(~x"//UpdateAccessKeyResponse",
+        response_metadata: response_metadata_path()
+      )
+    {:ok, %{resp | body: parsed_body}}
+  end
+  def update(resp, _), do: resp
+
+  @doc """
+  Parses the XML response of an IAM `DeleteAccessKey` request.
+
+  """
+  def delete({:ok, %{body: xml, status_code: status} = resp}, _) when status in 200..299 do
+    parsed_body =
+      xml
+      |> SweetXml.xpath(~x"//DeleteAccessKeyResponse",
+        response_metadata: response_metadata_path()
+      )
+    {:ok, %{resp | body: parsed_body}}
+  end
+  def delete(resp, _), do: resp
 
   defp response_metadata_path do
     [~x"//ResponseMetadata", request_id: ~x"./RequestId/text()"s]

@@ -79,6 +79,36 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
     assert expected == Parsers.AccessKey.create(response, "CreateAccessKey")
   end
 
+  test "update/2" do
+    xml = read_file("update")
+    response = {:ok, %{body: xml, status_code: 200}}
+    
+    expected = {:ok,
+      %{
+        body: %{
+          response_metadata: %{request_id: "fea09bbb-d213-11e8-bd77-49651db80edb"}
+        },
+        status_code: 200
+      }}
+
+    assert expected == Parsers.AccessKey.update(response, "DeleteAccessKey")
+  end
+
+  test "delete/2" do
+    xml = read_file("delete")
+    response = {:ok, %{body: xml, status_code: 200}}
+    
+    expected = {:ok,
+      %{
+        body: %{
+          response_metadata: %{request_id: "83a816bf-d214-11e8-ae70-8d0f09bb39be"}
+        },
+        status_code: 200
+      }}
+
+    assert expected == Parsers.AccessKey.delete(response, "DeleteAccessKey")
+  end
+
   defp read_file(name) do
     File.read!("test/support/responses/access_key/#{name}.xml")    
   end
