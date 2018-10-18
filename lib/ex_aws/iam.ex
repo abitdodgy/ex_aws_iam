@@ -2,18 +2,42 @@ defmodule ExAws.Iam do
   @moduledoc """
   Creates ExAws operations for making IAM requests.
 
+  For more information individual actions, see the AWS
+  IAM API documentation.
+
+    * https://docs.aws.amazon.com/IAM/latest/APIReference/API_{OpName}.html
+
+  Replace `OpName` is the name of the operation you want to consult.
+
+  Actions that are currently implemented:
+
+    * CreateAccessKey
+    * CreateUser
+    * DeleteAccessKey
+    * DeleteUser
+    * GetAccessKeyLastUsed
+    * GetUser
+    * ListAccessKeys
+    * ListUsers
+    * UpdateAccessKey
+    * UpdateUser
+
   ## Shared Options
 
     * `:version` - The API version that the request is written for, expressed in the
       format YYYY-MM-DD. Defaults to `2010-05-08`.
 
-  """  
+  """
+
+  import ExAws.Iam.Utils, only: [list_to_camelized_map: 1, camelize: 1]
 
   alias ExAws
-  alias ExAws.Iam.{Parsers, Params}
+  alias ExAws.Iam.Parsers
+
+  @shared_opts [version: "2010-05-08"]
 
   @doc """
-  Creates an ExAws operation for a [`ListUsers`][1] IAM request.
+  Creates an ExAws operation for a `ListUsers` IAM request.
 
   ## Options
 
@@ -26,17 +50,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListUsers.html
-
   """
   def list_users(opts \\ []) do
-    :list
-    |> Params.User.new(opts)
+    :list_users
+    |> to_params(opts)
     |> to_op(parser: &Parsers.User.list/2)
   end
 
   @doc """
-  Creates an ExAws operation for a [`GetUser`][1] IAM request.
+  Creates an ExAws operation for a `GetUser` IAM request.
 
   ## Parameters
 
@@ -46,17 +68,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetUser.html
-
   """
   def get_user(username, opts \\ []) do
-    :get
-    |> Params.User.new([username: username] ++ opts)
+    :get_user
+    |> to_params(opts, [user_name: username])
     |> to_op(parser: &Parsers.User.get/2)    
   end
 
   @doc """
-  Creates an ExAws operation for a [`CreateUser`][1] IAM request.
+  Creates an ExAws operation for a `CreateUser` IAM request.
 
   ## Parameters
 
@@ -71,17 +91,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateUser.html
-
   """
   def create_user(username, opts \\ []) do
-    :create
-    |> Params.User.new([username: username] ++ opts)
+    :create_user
+    |> to_params(opts, [user_name: username])
     |> to_op(parser: &Parsers.User.create/2)
   end
 
   @doc """
-  Creates an ExAws operation for an [`UpdateUser`][1] IAM request.
+  Creates an ExAws operation for an `UpdateUser` IAM request.
 
   ## Parameters
 
@@ -93,22 +111,20 @@ defmodule ExAws.Iam do
     * `:new_path` - New path for the IAM user. Include this parameter only
       if you're changing the user's path.
 
-    * `:new_username` - New name for the user. Include this parameter only
+    * `:new_user_name` - New name for the user. Include this parameter only
       if you're changing the user's name.
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateUser.html
-
   """
   def update_user(username, opts \\ []) do
-    :update
-    |> Params.User.new([username: username] ++ opts)
+    :update_user
+    |> to_params(opts, [user_name: username])
     |> to_op()
   end
 
   @doc """
-  Creates an ExAws operation for a [`DeleteUser`][1] IAM request.
+  Creates an ExAws operation for a `DeleteUser` IAM request.
 
   ## Parameters
 
@@ -118,17 +134,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteUser.html
-
   """
   def delete_user(username, opts \\ []) do
-    :delete
-    |> Params.User.new([username: username] ++ opts)
+    :delete_user
+    |> to_params(opts, [user_name: username])
     |> to_op()
   end
 
   @doc """
-  Creates an ExAws operation for a [`ListAccessKeys`][1] IAM request.
+  Creates an ExAws operation for a `ListAccessKeys` IAM request.
 
   ## Options
 
@@ -141,17 +155,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_ListAccessKeys.html
-
   """
   def list_access_keys(opts \\ []) do
-    :list
-    |> Params.AccessKey.new(opts)
+    :list_access_keys
+    |> to_params(opts)
     |> to_op(parser: &Parsers.AccessKey.list/2)
   end
 
   @doc """
-  Creates an ExAws operation for a [`GetAccessKeyLastUsed`][1] IAM request.
+  Creates an ExAws operation for a `GetAccessKeyLastUsed` IAM request.
 
   ## Parameters
 
@@ -161,17 +173,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetAccessKeyLastUsed.html
-
   """
   def get_access_key_last_used(access_key_id, opts \\ []) do
-    :get_last_used
-    |> Params.AccessKey.new([access_key_id: access_key_id] ++ opts)
+    :get_access_key_last_used
+    |> to_params(opts, [access_key_id: access_key_id])
     |> to_op(parser: &Parsers.AccessKey.get_last_used/2)
   end
 
   @doc """
-  Creates an ExAws operation for a [`CreateAccessKey`][1] IAM request.
+  Creates an ExAws operation for a `CreateAccessKey` IAM request.
 
   ## Parameters
 
@@ -181,17 +191,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateAccessKey.html
-
   """
   def create_access_key(username, opts \\ []) do
-    :create
-    |> Params.AccessKey.new([username: username] ++ opts)
+    :create_access_key
+    |> to_params(opts, [user_name: username])
     |> to_op(parser: &Parsers.AccessKey.create/2)
   end  
 
   @doc """
-  Creates an ExAws operation for an [`UpdateAccessKey`][1] IAM request.
+  Creates an ExAws operation for an `UpdateAccessKey` IAM request.
 
   ## Parameters
 
@@ -206,18 +214,15 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAccessKey.html
-
   """
   def update_access_key(access_key_id, status, opts \\ []) do
-    opts = [access_key_id: access_key_id, status: status] ++ opts
-    :update
-    |> Params.AccessKey.new(opts)
+    :update_access_key
+    |> to_params(opts, [access_key_id: access_key_id, status: status])
     |> to_op()
   end
 
   @doc """
-  Creates an ExAws operation for a [`DeleteAccessKey`][1] IAM request.
+  Creates an ExAws operation for a `DeleteAccessKey` IAM request.
 
   ## Parameters
 
@@ -229,20 +234,22 @@ defmodule ExAws.Iam do
 
   See shared options in moduledoc.
 
-  [1] https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteAccessKey.html
-
   """
   def delete_access_key(access_key_id, username, opts \\ []) do
-    opts = [access_key_id: access_key_id, username: username] ++ opts
-    :delete
-    |> Params.AccessKey.new(opts)
+    :delete_access_key
+    |> to_params(opts, [access_key_id: access_key_id, user_name: username])
     |> to_op()
   end
 
+  defp to_params(action, opts, args \\ []) do
+    @shared_opts
+    |> Keyword.merge(opts)
+    |> Keyword.merge(args)
+    |> Keyword.put(:action, camelize(action))
+    |> list_to_camelized_map()
+  end
+
   defp to_op(params, opts \\ []) do
-    params = Map.merge(%{
-      "Version" => "2010-05-08"
-    }, params)
     %ExAws.Operation.Query{
       action: params["Action"],
       params: params,

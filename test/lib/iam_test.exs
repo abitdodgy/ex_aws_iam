@@ -69,7 +69,7 @@ defmodule ExAws.IamTest do
   test "update_user/1 returns an ExAws UpdateUser op struct" do
     opts = [
       new_path: "/new/path",
-      new_username: "new"
+      new_user_name: "new"
     ]
 
     expected =
