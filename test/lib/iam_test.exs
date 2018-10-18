@@ -3,7 +3,7 @@ defmodule ExAws.IamTest do
   doctest ExAws.Iam
 
   alias ExAws.Iam
-  alias ExAws.Iam.Parsers
+  alias ExAws.Iam.{Parsers, User}
 
   test "list_users/0 returns an ExAws ListUsers op struct" do
     opts = [
@@ -184,5 +184,77 @@ defmodule ExAws.IamTest do
         service: :iam
       }
     assert Iam.delete_access_key("key_id", "username") == expected
+  end
+
+  test "to_user/1 converts GetUser result into a User struct" do
+    xml = read_file("get")
+    response = Parsers.User.get({:ok, %{body: xml, status_code: 200}}, "GetUser")
+
+    {:ok, %{
+      body: %{
+        get_user_result: %{
+          user: user
+    }}}} = response
+
+    assert Iam.to_user(response) ==
+      %User{
+        arn: user[:arn],
+        create_date: user[:create_date],
+        path: user[:path],
+        username: user[:username],
+        user_id: user[:user_id]
+      }
+  end
+
+  test "to_user/1 converts CreateUser result into a User struct" do
+    xml = read_file("create")
+    response = Parsers.User.create({:ok, %{body: xml, status_code: 200}}, "CreateUser")
+
+    {:ok, %{
+      body: %{
+        create_user_result: %{
+          user: user
+    }}}} = response
+
+    assert Iam.to_user(response) ==
+      %User{
+        arn: user[:arn],
+        create_date: user[:create_date],
+        path: user[:path],
+        username: user[:username],
+        user_id: user[:user_id]
+      }
+  end
+
+  test "to_user/1 converts ListUsers result into a list of User structs" do
+    xml = read_file("list")
+    response = Parsers.User.list({:ok, %{body: xml, status_code: 200}}, "ListUsers")
+
+    {:ok, %{
+      body: %{
+        list_users_result: %{
+          users: [user, user_2]
+    }}}} = response
+
+    assert Iam.to_user(response) == [
+      %User{
+        arn: user[:arn],
+        create_date: user[:create_date],
+        path: user[:path],
+        username: user[:username],
+        user_id: user[:user_id]
+      },
+      %User{
+        arn: user_2[:arn],
+        create_date: user_2[:create_date],
+        path: user_2[:path],
+        user_id: user_2[:user_id],
+        username: user_2[:username]
+      }
+    ]
+  end
+
+  defp read_file(name) do
+    File.read!("test/support/responses/user/#{name}.xml")    
   end
 end

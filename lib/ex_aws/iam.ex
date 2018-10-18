@@ -32,7 +32,7 @@ defmodule ExAws.Iam do
   import ExAws.Iam.Utils, only: [list_to_camelized_map: 1, camelize: 1]
 
   alias ExAws
-  alias ExAws.Iam.Parsers
+  alias ExAws.Iam.{Parsers, User}
 
   @shared_opts [version: "2010-05-08"]
 
@@ -240,6 +240,8 @@ defmodule ExAws.Iam do
     |> to_params(opts, [access_key_id: access_key_id, user_name: username])
     |> to_op()
   end
+
+  def to_user({:ok, %{body: body}}), do: User.new(body)
 
   defp to_params(action, opts, args \\ []) do
     @shared_opts
