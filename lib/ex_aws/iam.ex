@@ -2,7 +2,7 @@ defmodule ExAws.Iam do
   @moduledoc """
   Creates ExAws operations for making IAM requests.
 
-  For more information individual actions, see the AWS
+  For more information on individual actions, see the AWS
   IAM API documentation.
 
     * https://docs.aws.amazon.com/IAM/latest/APIReference/API_{OpName}.html
@@ -32,7 +32,7 @@ defmodule ExAws.Iam do
   import ExAws.Iam.Utils, only: [list_to_camelized_map: 1, camelize: 1]
 
   alias ExAws
-  alias ExAws.Iam.{Parsers, User}
+  alias ExAws.Iam.{AccessKey, Parsers, User}
 
   @shared_opts [version: "2010-05-08"]
 
@@ -242,6 +242,8 @@ defmodule ExAws.Iam do
   end
 
   def to_user({:ok, %{body: body}}), do: User.new(body)
+
+  def to_access_key({:ok, %{body: body}}), do: AccessKey.new(body)
 
   defp to_params(action, opts, args \\ []) do
     @shared_opts

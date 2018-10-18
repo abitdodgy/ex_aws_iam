@@ -2,8 +2,10 @@ defmodule ExAws.IamTest do
   use ExUnit.Case
   doctest ExAws.Iam
 
+  import ExAws.Iam.TestHelper, only: [read_file: 2]
+
   alias ExAws.Iam
-  alias ExAws.Iam.{Parsers, User}
+  alias ExAws.Iam.{AccessKey, Parsers, User}
 
   test "list_users/0 returns an ExAws ListUsers op struct" do
     opts = [
@@ -187,7 +189,7 @@ defmodule ExAws.IamTest do
   end
 
   test "to_user/1 converts GetUser result into a User struct" do
-    xml = read_file("get")
+    xml = read_file("user", "get")
     response = Parsers.User.get({:ok, %{body: xml, status_code: 200}}, "GetUser")
 
     {:ok, %{
@@ -207,7 +209,7 @@ defmodule ExAws.IamTest do
   end
 
   test "to_user/1 converts CreateUser result into a User struct" do
-    xml = read_file("create")
+    xml = read_file("user", "create")
     response = Parsers.User.create({:ok, %{body: xml, status_code: 200}}, "CreateUser")
 
     {:ok, %{
@@ -227,7 +229,7 @@ defmodule ExAws.IamTest do
   end
 
   test "to_user/1 converts ListUsers result into a list of User structs" do
-    xml = read_file("list")
+    xml = read_file("user", "list")
     response = Parsers.User.list({:ok, %{body: xml, status_code: 200}}, "ListUsers")
 
     {:ok, %{
@@ -254,7 +256,47 @@ defmodule ExAws.IamTest do
     ]
   end
 
-  defp read_file(name) do
-    File.read!("test/support/responses/user/#{name}.xml")    
+  test "to_access_key/1 converts ListAccessKeys result into a list of AccessKey structs" do
+    xml = read_file("access_key", "list")
+    response = Parsers.AccessKey.list({:ok, %{body: xml, status_code: 200}}, "ListAccessKeys")
+
+    {:ok, %{
+      body: %{
+        list_access_keys_result: %{
+          access_key_metadata: [access_key]
+        }
+    }}} = response
+
+    assert Iam.to_access_key(response) == [
+      %AccessKey{
+        access_key_id: access_key[:access_key_id],
+        access_key_selector: access_key[:access_key_selector],
+        create_date: access_key[:create_date],
+        secret_access_key: access_key[:secret_access_key],
+        status: access_key[:status],
+        username: access_key[:username]
+      }
+    ]
+  end
+
+  test "to_access_key/1 converts CreateAccessKey result into an AccessKey struct" do
+    xml = read_file("access_key", "create")
+    response = Parsers.AccessKey.create({:ok, %{body: xml, status_code: 200}}, "CreateAccessKey")
+
+    {:ok, %{
+      body: %{
+        create_access_key_result: %{
+          access_key: access_key
+    }}}} = response
+
+    assert Iam.to_access_key(response) ==
+      %AccessKey{
+        access_key_id: access_key[:access_key_id],
+        access_key_selector: access_key[:access_key_selector],
+        create_date: access_key[:create_date],
+        secret_access_key: access_key[:secret_access_key],
+        status: access_key[:status],
+        username: access_key[:username]
+      }
   end
 end
