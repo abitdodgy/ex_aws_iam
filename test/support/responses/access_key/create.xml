@@ -4,7 +4,7 @@
             <AccessKeyId>AKIAJMQYDBOGSEDSCLJA</AccessKeyId>
             <SecretAccessKey>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</SecretAccessKey>
             <AccessKeySelector>HMAC</AccessKeySelector>
-            <UserName>bucket_admin</UserName>
+            <UserName>foo</UserName>
             <CreateDate>2018-10-17T13:50:19Z</CreateDate>
             <Status>Active</Status>
         </AccessKey>

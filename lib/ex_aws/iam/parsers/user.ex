@@ -31,7 +31,6 @@ defmodule ExAws.Iam.Parsers.User do
       )
     {:ok, %{resp | body: parsed_body}}
   end
-
   def list(resp, _), do: resp
 
   @doc """
@@ -49,7 +48,6 @@ defmodule ExAws.Iam.Parsers.User do
       )
     {:ok, %{resp | body: parsed_body}}
   end
-
   def get(resp, _), do: resp
 
   @doc """
@@ -67,7 +65,6 @@ defmodule ExAws.Iam.Parsers.User do
       )
     {:ok, %{resp | body: parsed_body}}
   end
-
   def create(resp, _), do: resp
 
   @doc """
@@ -82,7 +79,6 @@ defmodule ExAws.Iam.Parsers.User do
       )
     {:ok, %{resp | body: parsed_body}}
   end
-
   def update(resp, _), do: resp
 
   @doc """
@@ -97,7 +93,6 @@ defmodule ExAws.Iam.Parsers.User do
       )
     {:ok, %{resp | body: parsed_body}}
   end
-
   def delete(resp, _), do: resp
 
   defp user_path do

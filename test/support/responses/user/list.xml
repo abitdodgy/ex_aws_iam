@@ -11,8 +11,8 @@
             </member>  
             <member>
                 <Path>/</Path>
-                <UserName>bucket_admin</UserName>
-                <Arn>arn:aws:iam::085326204011:user/bucket_admin</Arn>
+                <UserName>some_user</UserName>
+                <Arn>arn:aws:iam::085326204011:user/some_user</Arn>
                 <UserId>AIDAJZTLCIRAWNUUPBREC</UserId>
                 <CreateDate>2018-10-14T18:31:50Z</CreateDate>
             </member>  

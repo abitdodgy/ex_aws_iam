@@ -5,7 +5,7 @@
             <Region>us-east-1</Region>
             <ServiceName>iam</ServiceName>
         </AccessKeyLastUsed>
-        <UserName>bucket_admin</UserName>
+        <UserName>some_user</UserName>
     </GetAccessKeyLastUsedResult>
     <ResponseMetadata>
         <RequestId>523b4eec-d213-11e8-a831-bf9f1ef556f4</RequestId>
