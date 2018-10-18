@@ -2,27 +2,39 @@ defmodule ExAws.Iam.Utils do
   @moduledoc false
 
   @doc """
-  Converts the given list of params into a map using the given mapper.
+  Converts the given keyword list into a map with string and camelcase keys.
 
-  This function is used to convert parameters from snake_case, as is
-  the Elixir convention, into PascalCase, the format used in AIM queries.
+  Use this to convert parameters into the correct casing as required
+  by the AWS IAM query API.
 
   ## Parameters
 
-    * `mapper` - A map of query parameters. Each key-value pair should be the
-      param name in snake_case and PascalCase respectively. 
-
-    * `opts` - A keyword list of parameters to convert.
+    * `list` - A keyword list to convert.
 
   ## Examples
 
-      iex> ExAws.Iam.Utils.opts_to_params(%{username: "UserName"}, [username: "foo"])
-      %{"UserName" => "foo"}
+      iex> ExAws.Iam.Utils.list_to_camelized_map([user_name: "my_user"])
+      %{"UserName" => "my_user"}
 
   """
-  def opts_to_params(mapper, opts) do
-    Enum.into(opts, %{}, fn {k, v} ->
-      {Map.get(mapper, k), v}
+  def list_to_camelized_map(list) do
+    Enum.into(list, %{}, fn {k, v} ->
+      {camelize(k), v}
     end)
-  end  
+  end
+
+  @doc """
+  Converts the given atom to a CamelCase string.
+
+  ## Examples
+
+      iex> ExAws.Iam.Utils.camelize(:user_name)
+      "UserName"
+
+  """
+  def camelize(atom) when is_atom(atom) do
+    atom
+    |> Atom.to_string()
+    |> Macro.camelize()
+  end
 end
