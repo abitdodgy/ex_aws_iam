@@ -5,7 +5,7 @@ defmodule ExAws.IamTest do
   import ExAws.Iam.TestHelper, only: [read_file: 2]
 
   alias ExAws.Iam
-  alias ExAws.Iam.{AccessKey, Parsers, User}
+  alias ExAws.Iam.{AccessKey, Parser, User}
 
   test "list_users/0 returns an ExAws ListUsers op struct" do
     opts = [
@@ -23,7 +23,7 @@ defmodule ExAws.IamTest do
         "PathPrefix" => "/prefix",
         "Version" => "2010-05-08"
       },
-      parser: &Parsers.User.list/2,
+      parser: &Parser.parse/2,
       path: "/",
       service: :iam
     }
@@ -39,7 +39,7 @@ defmodule ExAws.IamTest do
         "UserName" => "foo",
         "Version" => "2010-05-08"
       },
-      parser: &ExAws.Iam.Parsers.User.get/2,
+      parser: &Parser.parse/2,
       path: "/",
       service: :iam
     }
@@ -62,7 +62,7 @@ defmodule ExAws.IamTest do
         "UserName" => "mo",
         "Version" => "2010-05-08"
       },
-      parser: &Parsers.User.create/2,
+      parser: &Parser.parse/2,
       path: "/my/path",
       service: :iam
     }
@@ -116,7 +116,7 @@ defmodule ExAws.IamTest do
         "Action" => "ListAccessKeys",
         "Version" => "2010-05-08"
       },
-      parser: &Parsers.AccessKey.list/2,
+      parser: &Parser.parse/2,
       path: "/",
       service: :iam
     }
@@ -132,7 +132,7 @@ defmodule ExAws.IamTest do
         "Action" => "GetAccessKeyLastUsed",
         "Version" => "2010-05-08"
       },
-      parser: &Parsers.AccessKey.get_last_used/2,
+      parser: &Parser.parse/2,
       path: "/",
       service: :iam
     }
@@ -148,7 +148,7 @@ defmodule ExAws.IamTest do
         "UserName" => "username",
         "Version" => "2010-05-08"
       },
-      parser: &Parsers.AccessKey.create/2,
+      parser: &Parser.parse/2,
       path: "/",
       service: :iam
     }
@@ -192,7 +192,7 @@ defmodule ExAws.IamTest do
 
   test "to_user/1 converts GetUser result into a User struct" do
     xml = read_file("user", "get")
-    response = Parsers.User.get({:ok, %{body: xml, status_code: 200}}, "GetUser")
+    response = Parser.parse({:ok, %{body: xml, status_code: 200}}, "GetUser")
 
     {:ok,
      %{
@@ -215,7 +215,7 @@ defmodule ExAws.IamTest do
 
   test "to_user/1 converts CreateUser result into a User struct" do
     xml = read_file("user", "create")
-    response = Parsers.User.create({:ok, %{body: xml, status_code: 200}}, "CreateUser")
+    response = Parser.parse({:ok, %{body: xml, status_code: 200}}, "CreateUser")
 
     {:ok,
      %{
@@ -238,7 +238,7 @@ defmodule ExAws.IamTest do
 
   test "to_user/1 converts ListUsers result into a list of User structs" do
     xml = read_file("user", "list")
-    response = Parsers.User.list({:ok, %{body: xml, status_code: 200}}, "ListUsers")
+    response = Parser.parse({:ok, %{body: xml, status_code: 200}}, "ListUsers")
 
     {:ok,
      %{
@@ -269,7 +269,7 @@ defmodule ExAws.IamTest do
 
   test "to_access_key/1 converts ListAccessKeys result into a list of AccessKey structs" do
     xml = read_file("access_key", "list")
-    response = Parsers.AccessKey.list({:ok, %{body: xml, status_code: 200}}, "ListAccessKeys")
+    response = Parser.parse({:ok, %{body: xml, status_code: 200}}, "ListAccessKeys")
 
     {:ok,
      %{
@@ -294,7 +294,7 @@ defmodule ExAws.IamTest do
 
   test "to_access_key/1 converts CreateAccessKey result into an AccessKey struct" do
     xml = read_file("access_key", "create")
-    response = Parsers.AccessKey.create({:ok, %{body: xml, status_code: 200}}, "CreateAccessKey")
+    response = Parser.parse({:ok, %{body: xml, status_code: 200}}, "CreateAccessKey")
 
     {:ok,
      %{

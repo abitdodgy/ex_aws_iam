@@ -32,7 +32,7 @@ defmodule ExAws.Iam do
   import ExAws.Iam.Utils, only: [list_to_camelized_map: 1, camelize: 1]
 
   alias ExAws
-  alias ExAws.Iam.{AccessKey, Parsers, User}
+  alias ExAws.Iam.{AccessKey, Parser, User}
 
   @shared_opts [version: "2010-05-08"]
 
@@ -54,7 +54,7 @@ defmodule ExAws.Iam do
   def list_users(opts \\ []) do
     :list_users
     |> to_params(opts)
-    |> to_op(parser: &Parsers.User.list/2)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -72,7 +72,7 @@ defmodule ExAws.Iam do
   def get_user(username, opts \\ []) do
     :get_user
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parsers.User.get/2)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -95,7 +95,7 @@ defmodule ExAws.Iam do
   def create_user(username, opts \\ []) do
     :create_user
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parsers.User.create/2)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -159,7 +159,7 @@ defmodule ExAws.Iam do
   def list_access_keys(opts \\ []) do
     :list_access_keys
     |> to_params(opts)
-    |> to_op(parser: &Parsers.AccessKey.list/2)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -177,7 +177,7 @@ defmodule ExAws.Iam do
   def get_access_key_last_used(access_key_id, opts \\ []) do
     :get_access_key_last_used
     |> to_params(opts, access_key_id: access_key_id)
-    |> to_op(parser: &Parsers.AccessKey.get_last_used/2)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -195,7 +195,7 @@ defmodule ExAws.Iam do
   def create_access_key(username, opts \\ []) do
     :create_access_key
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parsers.AccessKey.create/2)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """

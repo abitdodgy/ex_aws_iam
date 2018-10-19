@@ -1,11 +1,12 @@
 defmodule ExAws.Iam.Parsers.AccessKeyTest do
   use ExUnit.Case
-  doctest ExAws.Iam.Parsers.AccessKey
 
-  alias ExAws.Iam.Parsers
+  import ExAws.Iam.TestHelper, only: [read_file: 2]
+
+  alias ExAws.Iam.Parser
 
   test "list/2" do
-    xml = read_file("list")
+    xml = read_file("access_key", "list")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -29,11 +30,11 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.AccessKey.list(response, "ListAccessKeys")
+    assert expected == Parser.parse(response, "ListAccessKeys")
   end
 
   test "get_last_used/2" do
-    xml = read_file("get_last_used")
+    xml = read_file("access_key", "get_last_used")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -53,11 +54,11 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.AccessKey.get_last_used(response, "GetAccessKeyLastUsed")
+    assert expected == Parser.parse(response, "GetAccessKeyLastUsed")
   end
 
   test "create/2" do
-    xml = read_file("create")
+    xml = read_file("access_key", "create")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -79,11 +80,11 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.AccessKey.create(response, "CreateAccessKey")
+    assert expected == Parser.parse(response, "CreateAccessKey")
   end
 
   test "update/2" do
-    xml = read_file("update")
+    xml = read_file("access_key", "update")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -95,11 +96,11 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.AccessKey.update(response, "DeleteAccessKey")
+    assert expected == Parser.parse(response, "UpdateAccessKey")
   end
 
   test "delete/2" do
-    xml = read_file("delete")
+    xml = read_file("access_key", "delete")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -111,10 +112,6 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.AccessKey.delete(response, "DeleteAccessKey")
-  end
-
-  defp read_file(name) do
-    File.read!("test/support/responses/access_key/#{name}.xml")
+    assert expected == Parser.parse(response, "DeleteAccessKey")
   end
 end

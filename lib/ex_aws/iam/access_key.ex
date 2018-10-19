@@ -39,7 +39,7 @@ defmodule ExAws.Iam.AccessKey do
     access_key_to_struct(access_key)
   end
 
-  def access_key_to_struct(access_key) do
+  defp access_key_to_struct(access_key) do
     %ExAws.Iam.AccessKey{
       access_key_id: access_key[:access_key_id],
       access_key_selector: access_key[:access_key_selector],

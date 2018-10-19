@@ -1,11 +1,12 @@
 defmodule ExAws.Iam.Parsers.UserTest do
   use ExUnit.Case
-  doctest ExAws.Iam.Parsers.User
 
-  alias ExAws.Iam.Parsers
+  import ExAws.Iam.TestHelper, only: [read_file: 2]
+
+  alias ExAws.Iam.Parser
 
   test "list/2" do
-    xml = read_file("list")
+    xml = read_file("user", "list")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -37,11 +38,11 @@ defmodule ExAws.Iam.Parsers.UserTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.User.list(response, "ListUsers")
+    assert expected == Parser.parse(response, "ListUsers")
   end
 
   test "get/2" do
-    xml = read_file("get")
+    xml = read_file("user", "get")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -62,11 +63,11 @@ defmodule ExAws.Iam.Parsers.UserTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.User.get(response, "GetUser")
+    assert expected == Parser.parse(response, "GetUser")
   end
 
   test "create/2" do
-    xml = read_file("create")
+    xml = read_file("user", "create")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -89,11 +90,11 @@ defmodule ExAws.Iam.Parsers.UserTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.User.create(response, "CreateUser")
+    assert expected == Parser.parse(response, "CreateUser")
   end
 
   test "update/2" do
-    xml = read_file("update")
+    xml = read_file("user", "update")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -107,11 +108,11 @@ defmodule ExAws.Iam.Parsers.UserTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.User.update(response, "DeleteUser")
+    assert expected == Parser.parse(response, "UpdateUser")
   end
 
   test "delete/2" do
-    xml = read_file("delete")
+    xml = read_file("user", "delete")
     response = {:ok, %{body: xml, status_code: 200}}
 
     expected =
@@ -125,10 +126,6 @@ defmodule ExAws.Iam.Parsers.UserTest do
          status_code: 200
        }}
 
-    assert expected == Parsers.User.delete(response, "DeleteUser")
-  end
-
-  defp read_file(name) do
-    File.read!("test/support/responses/user/#{name}.xml")
+    assert expected == Parser.parse(response, "DeleteUser")
   end
 end

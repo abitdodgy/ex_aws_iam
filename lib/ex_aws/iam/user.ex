@@ -21,21 +21,17 @@ defmodule ExAws.Iam.User do
           username: String.t()
         }
 
-  def new(%{get_user_result: %{user: user}}) do
-    user_to_struct(user)
-  end
+  def new(%{get_user_result: %{user: user}}), do: to_struct(user)
 
-  def new(%{create_user_result: %{user: user}}) do
-    user_to_struct(user)
-  end
+  def new(%{create_user_result: %{user: user}}), do: to_struct(user)
 
   def new(%{list_users_result: %{users: users}}) do
     Enum.map(users, fn user ->
-      user_to_struct(user)
+      to_struct(user)
     end)
   end
 
-  defp user_to_struct(user) do
+  defp to_struct(user) do
     %ExAws.Iam.User{
       arn: user[:arn],
       create_date: user[:create_date],
