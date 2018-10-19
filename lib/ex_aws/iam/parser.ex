@@ -1,6 +1,6 @@
 defmodule ExAws.Iam.Parser do
   @moduledoc """
-  An interface for parsing IAM user query requests.
+  An interface for parsing IAM user query responses.
 
   To add a new parser, define a `parse/2` function in the desired
   module and add the action name to the corresponding @x_actions list.
