@@ -63,7 +63,7 @@ config :ex_aws,
 
 ## Usage
 
-See the documentation for details. The following operations are currently available.
+[See the documentation](https://hexdocs.pm/ex_aws_iam) for details. The following operations are currently available.
 
 ### User
 
