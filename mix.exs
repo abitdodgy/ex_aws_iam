@@ -4,7 +4,7 @@ defmodule Iam.MixProject do
   def project do
     [
       app: :ex_aws_iam,
-      version: "0.1.2",
+      version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       description: description(),
@@ -14,7 +14,7 @@ defmodule Iam.MixProject do
       homepage_url: "https://github.com/abitdodgy/ex_aws_iam",
       package: package(),
       docs: [
-        main: "README",
+        main: "readme",
         extras: ["README.md"]
       ]
     ]
