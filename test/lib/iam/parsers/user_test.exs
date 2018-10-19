@@ -92,40 +92,4 @@ defmodule ExAws.Iam.Parsers.UserTest do
 
     assert expected == Parser.parse(response, "CreateUser")
   end
-
-  test "update/2" do
-    xml = read_file("user", "update")
-    response = {:ok, %{body: xml, status_code: 200}}
-
-    expected =
-      {:ok,
-       %{
-         body: %{
-           response_metadata: %{
-             request_id: "95dc0a83-d212-11e8-adf2-fb1dda9ce0ce"
-           }
-         },
-         status_code: 200
-       }}
-
-    assert expected == Parser.parse(response, "UpdateUser")
-  end
-
-  test "delete/2" do
-    xml = read_file("user", "delete")
-    response = {:ok, %{body: xml, status_code: 200}}
-
-    expected =
-      {:ok,
-       %{
-         body: %{
-           response_metadata: %{
-             request_id: "ccad8c35-d212-11e8-bd77-49651db80edb"
-           }
-         },
-         status_code: 200
-       }}
-
-    assert expected == Parser.parse(response, "DeleteUser")
-  end
 end

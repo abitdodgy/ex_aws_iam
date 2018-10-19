@@ -1,13 +1,14 @@
 defmodule ExAws.Iam.Parsers.User do
   @moduledoc """
-  Defines parsers for handling AWS IAM user query reponses.
+  Defines parsers for handling AWS IAM `User` query reponses.
 
   """
 
   import SweetXml, only: [sigil_x: 2]
+  import ExAws.Iam.Utils, only: [response_metadata_path: 0]
 
   @doc """
-  Parses XML from IAM API user query responses.
+  Parses XML from IAM `ListUsers` response.
 
   """
   def parse(xml, "ListUsers") do
@@ -29,7 +30,11 @@ defmodule ExAws.Iam.Parsers.User do
     )
   end
 
-  def parse(xml, "GetUser") do    
+  @doc """
+  Parses XML from IAM `GetUser` response.
+
+  """
+  def parse(xml, "GetUser") do
     SweetXml.xpath(xml, ~x"//GetUserResponse",
       get_user_result: [
         ~x"//GetUserResult",
@@ -39,19 +44,16 @@ defmodule ExAws.Iam.Parsers.User do
     )
   end
 
+  @doc """
+  Parses XML from IAM `CreateUser` response.
+
+  """
   def parse(xml, "CreateUser") do
     SweetXml.xpath(xml, ~x"//CreateUserResponse",
       create_user_result: [
         ~x"//CreateUserResult",
         user: user_path()
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
-
-  def parse(xml, action) when action in ~w[UpdateUser DeleteUser] do
-    path = "//" <> action <> "Response"
-    SweetXml.xpath(xml, ~x"#{path}",
       response_metadata: response_metadata_path()
     )
   end
@@ -65,9 +67,5 @@ defmodule ExAws.Iam.Parsers.User do
       user_id: ~x"./UserId/text()"s,
       create_date: ~x"./CreateDate/text()"s
     ]
-  end
-
-  defp response_metadata_path do
-    [~x"//ResponseMetadata", request_id: ~x"./RequestId/text()"s]
   end
 end

@@ -1,6 +1,8 @@
 defmodule ExAws.Iam.Utils do
   @moduledoc false
 
+  import SweetXml, only: [sigil_x: 2]
+
   @doc """
   Converts the given keyword list into a map with string and camelcase keys.
 
@@ -36,5 +38,13 @@ defmodule ExAws.Iam.Utils do
     atom
     |> Atom.to_string()
     |> Macro.camelize()
+  end
+
+  @doc """
+  Returns the XML path for IAM request metadata.
+
+  """
+  def response_metadata_path do
+    [~x"//ResponseMetadata", request_id: ~x"./RequestId/text()"s]
   end
 end

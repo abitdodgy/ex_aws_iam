@@ -44,7 +44,7 @@ defmodule Iam.MixProject do
     [
       licenses: ["MIT"],
       maintainers: ["Mohamad El-Husseini"],
-      links: %{github: "https://github.com/abitdodgy/ex_aws_iam"},
+      links: %{github: "https://github.com/abitdodgy/ex_aws_iam"}
     ]
   end
 end

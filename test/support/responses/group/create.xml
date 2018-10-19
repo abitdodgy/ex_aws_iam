@@ -1,0 +1,14 @@
+<CreateGroupResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+  <CreateGroupResult>
+    <Group>
+      <Path>/</Path>
+      <GroupName>foo</GroupName>
+      <Arn>arn:aws:iam::085326204011:group/foo</Arn>
+      <GroupId>AGPAIDI3XY2DD433B73WG</GroupId>
+      <CreateDate>2018-10-19T22:04:37Z</CreateDate>
+    </Group>
+  </CreateGroupResult>
+  <ResponseMetadata>
+    <RequestId>f7fb9d1a-d3ea-11e8-8b50-27e8923234d4</RequestId>
+  </ResponseMetadata>
+</CreateGroupResponse>

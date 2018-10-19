@@ -1,13 +1,14 @@
 defmodule ExAws.Iam.Parsers.AccessKey do
   @moduledoc """
-  Defines parsers for handling AWS IAM access key query reponses.
+  Defines parsers for handling AWS IAM `AccessKey` query reponses.
 
   """
 
   import SweetXml, only: [sigil_x: 2]
+  import ExAws.Iam.Utils, only: [response_metadata_path: 0]
 
   @doc """
-  Parses XML from IAM API access key query responses.
+  Parses XML from IAM `ListAccessKeys` response.
 
   """
   def parse(xml, "ListAccessKeys") do
@@ -28,6 +29,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
     )
   end
 
+  @doc """
+  Parses XML from IAM `GetAccessKeyLastUsed` response.
+
+  """
   def parse(xml, "GetAccessKeyLastUsed") do
     SweetXml.xpath(xml, ~x"//GetAccessKeyLastUsedResponse",
       get_access_key_last_used_result: [
@@ -44,6 +49,10 @@ defmodule ExAws.Iam.Parsers.AccessKey do
     )
   end
 
+  @doc """
+  Parses XML from IAM `CreateAccessKey` response.
+
+  """
   def parse(xml, "CreateAccessKey") do
     SweetXml.xpath(xml, ~x"//CreateAccessKeyResponse",
       create_access_key_result: [
@@ -60,16 +69,5 @@ defmodule ExAws.Iam.Parsers.AccessKey do
       ],
       response_metadata: response_metadata_path()
     )
-  end
-
-  def parse(xml, action) when action in ~w[UpdateAccessKey DeleteAccessKey] do
-    path = "//" <> action <> "Response"
-    SweetXml.xpath(xml, ~x"#{path}",
-      response_metadata: response_metadata_path()
-    )
-  end
-
-  defp response_metadata_path do
-    [~x"//ResponseMetadata", request_id: ~x"./RequestId/text()"s]
   end
 end

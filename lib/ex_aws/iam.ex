@@ -36,6 +36,10 @@ defmodule ExAws.Iam do
 
   @shared_opts [version: "2010-05-08"]
 
+  # 
+  # User
+  # 
+
   @doc """
   Creates an ExAws operation for a `ListUsers` IAM request.
 
@@ -120,7 +124,7 @@ defmodule ExAws.Iam do
   def update_user(username, opts \\ []) do
     :update_user
     |> to_params(opts, user_name: username)
-    |> to_op()
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -138,8 +142,24 @@ defmodule ExAws.Iam do
   def delete_user(username, opts \\ []) do
     :delete_user
     |> to_params(opts, user_name: username)
-    |> to_op()
+    |> to_op(parser: &Parser.parse/2)
   end
+
+  @doc """
+  Converts a parsed IAM response into a `User` struct.
+
+  ## Parameters
+
+    * `resp` - The parsed response of an IAM API query request.
+
+  """
+  def to_user({:ok, %{body: body}}) do
+    User.new(body)
+  end
+
+  # 
+  # Access Key
+  # 
 
   @doc """
   Creates an ExAws operation for a `ListAccessKeys` IAM request.
@@ -218,7 +238,7 @@ defmodule ExAws.Iam do
   def update_access_key(access_key_id, status, opts \\ []) do
     :update_access_key
     |> to_params(opts, access_key_id: access_key_id, status: status)
-    |> to_op()
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -238,19 +258,7 @@ defmodule ExAws.Iam do
   def delete_access_key(access_key_id, username, opts \\ []) do
     :delete_access_key
     |> to_params(opts, access_key_id: access_key_id, user_name: username)
-    |> to_op()
-  end
-
-  @doc """
-  Converts a parsed IAM response into a `User` struct.
-
-  ## Parameters
-
-    * `resp` - The parsed response of an IAM API query request.
-
-  """
-  def to_user({:ok, %{body: body}}) do
-    User.new(body)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   @doc """
@@ -261,6 +269,73 @@ defmodule ExAws.Iam do
   """
   def to_access_key({:ok, %{body: body}}) do
     AccessKey.new(body)
+  end
+
+  # 
+  # Group
+  # 
+
+  @doc """
+  Creates an ExAws operation for a `CreateGroup` IAM request.
+
+  ## Parameters
+
+    * `name` - The name of the IAM group to create.
+
+  ## Options
+
+    * `:path` - The path to the group. Defaults to "/".
+
+  See shared options in moduledoc.
+
+  """
+  def create_group(name, opts \\ []) do
+    :create_group
+    |> to_params(opts, group_name: name)
+    |> to_op(parser: &Parser.parse/2)
+  end
+
+  @doc """
+  Creates an ExAws operation for an `UpdateGroup` IAM request.
+
+  ## Parameters
+
+    * `name` - The name of the group to update. If you're changing the name
+      of the group, this is the original group name.
+
+  ## Options
+
+    * `:new_path` - New path for the IAM group. Include this parameter only
+      if you're changing the group's path.
+
+    * `:new_group_name` - New name for the group. Include this parameter only
+      if you're changing the group's name.
+
+  See shared options in moduledoc.
+
+  """
+  def update_group(name, opts \\ []) do
+    :update_group
+    |> to_params(opts, group_name: name)
+    |> to_op(parser: &Parser.parse/2)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `DeleteGroup` IAM request.
+
+  ## Parameters
+
+    * `name` - The name of the group to delete.
+
+  ## Options
+
+  See shared options in moduledoc.
+
+  """
+  def delete_group(name, opts \\ []) do
+    :delete_group
+    |> to_params(opts, group_name: name)
+    |> to_op(parser: &Parser.parse/2)
   end
 
   defp to_params(action, opts, args \\ []) do
