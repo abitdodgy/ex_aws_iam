@@ -10,10 +10,10 @@ user =
   |> Iam.to_user()
 
 %Iam.User{
-  arn: "arn:aws:iam::085326204011:user",
+  arn: "arn:aws:iam::085326204011:user/my_user",
   create_date: "2018-10-17T13:36:28Z",
   path: "/my/path/",
-  username: "my_username",
+  username: "my_user",
   user_id: "AIDAJMIUVQAU2TW666HH2"
 }
 
