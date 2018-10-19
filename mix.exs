@@ -14,6 +14,7 @@ defmodule Iam.MixProject do
       homepage_url: "https://github.com/abitdodgy/ex_aws_iam",
       package: package(),
       docs: [
+        main: "README",
         extras: ["README.md"]
       ]
     ]
