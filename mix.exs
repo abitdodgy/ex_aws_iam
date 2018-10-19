@@ -7,7 +7,11 @@ defmodule Iam.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      description: description(),
+      deps: deps(),
+      name: "ExAws.IAM",
+      source_url: "https://github.com/abitdodgy/ex_aws_iam",
+      package: package()
     ]
   end
 
@@ -24,6 +28,18 @@ defmodule Iam.MixProject do
       {:ex_aws, "~> 2.0"},
       {:hackney, "~> 1.9"},
       {:sweet_xml, "~> 0.6"}
+    ]
+  end
+
+  defp description do
+    "An ExAws service module to interact with AWS IAM"
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      maintainers: ["Mohamad El-Husseini"],
+      links: %{github: "https://github.com/abitdodgy/ex_aws_iam"},
     ]
   end
 end
