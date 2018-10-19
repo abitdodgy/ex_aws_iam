@@ -26,8 +26,8 @@ defmodule Iam.MixProject do
   defp deps do
     [
       {:ex_aws, "~> 2.0"},
-      {:hackney, "~> 1.9"},
-      {:sweet_xml, "~> 0.6"}
+      {:sweet_xml, "~> 0.6"},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
