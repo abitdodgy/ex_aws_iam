@@ -11,9 +11,10 @@ defmodule Iam.MixProject do
       deps: deps(),
       name: "ExAws.IAM",
       source_url: "https://github.com/abitdodgy/ex_aws_iam",
+      homepage_url: "https://github.com/abitdodgy/ex_aws_iam",
       package: package(),
       docs: [
-        main: "README.md"
+        extras: ["README.md"]
       ]
     ]
   end
