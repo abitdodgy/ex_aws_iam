@@ -1,6 +1,8 @@
 # ExAws IAM
 
-Easily interact with the AWS IAM API to work with users, access keys, and much more. This is an IAM service module for [ExAws](https://github.com/ex-aws/ex_aws).
+Easily interact with the AWS IAM API to work with users, access keys, and much more.
+
+This is an IAM service module for [ExAws](https://github.com/ex-aws/ex_aws).
 
 ```elixir
 user =
@@ -61,7 +63,7 @@ config :ex_aws,
 
 ## Usage
 
-The following operations are currently available.
+See the documentation for details. The following operations are currently available.
 
 ### User
 

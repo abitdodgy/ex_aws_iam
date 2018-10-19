@@ -241,9 +241,27 @@ defmodule ExAws.Iam do
     |> to_op()
   end
 
-  def to_user({:ok, %{body: body}}), do: User.new(body)
+  @doc """
+  Converts a parsed IAM response into a `User` struct.
 
-  def to_access_key({:ok, %{body: body}}), do: AccessKey.new(body)
+  ## Parameters
+
+    * `resp` - The parsed response of an IAM API query request.
+
+  """
+  def to_user({:ok, %{body: body}}) do
+    User.new(body)
+  end
+
+  @doc """
+  Converts a parsed IAM response into an `AccessKey` struct.
+
+    * `resp` - The parsed response of an IAM API query request.
+
+  """
+  def to_access_key({:ok, %{body: body}}) do
+    AccessKey.new(body)
+  end
 
   defp to_params(action, opts, args \\ []) do
     @shared_opts

@@ -21,6 +21,10 @@ defmodule ExAws.Iam.User do
           username: String.t()
         }
 
+  @doc """
+  Returns a struct representation of an IAM User.
+
+  """
   def new(%{get_user_result: %{user: user}}), do: to_struct(user)
 
   def new(%{create_user_result: %{user: user}}), do: to_struct(user)

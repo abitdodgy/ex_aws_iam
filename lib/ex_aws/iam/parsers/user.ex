@@ -1,8 +1,15 @@
 defmodule ExAws.Iam.Parsers.User do
-  @moduledoc false
+  @moduledoc """
+  Defines parsers for handling AWS IAM user query reponses.
+
+  """
 
   import SweetXml, only: [sigil_x: 2]
 
+  @doc """
+  Parses XML from IAM API user query responses.
+
+  """
   def parse(xml, "ListUsers") do
     SweetXml.xpath(xml, ~x"//ListUsersResponse",
       list_users_result: [

@@ -1,10 +1,13 @@
 defmodule ExAws.Iam.Parsers.AccessKey do
-  @moduledoc false
+  @moduledoc """
+  Defines parsers for handling AWS IAM access key query reponses.
+
+  """
 
   import SweetXml, only: [sigil_x: 2]
 
   @doc """
-  Parses XML from IAM API query responses.
+  Parses XML from IAM API access key query responses.
 
   """
   def parse(xml, "ListAccessKeys") do
