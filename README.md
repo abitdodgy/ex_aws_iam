@@ -1,13 +1,65 @@
 # ExAws IAM
 
-Easily interact with the AWS IAM API to work with users, access keys, and much more.
+Easily interact with the AWS IAM API to work with users, access keys, and any other entity. This is an IAM service module for [ExAws](https://github.com/ex-aws/ex_aws).
 
-This is an IAM service module for [ExAws](https://github.com/ex-aws/ex_aws).
+The lib provides a low-level `operation/3` function to build any AIM API action.
+
+```
+op = Iam.operation(:list_users, max_items: 50, path: "/my/path/")
+%ExAws.Operation.Query{
+  action: "ListUsers",
+  params: %{
+    "Action" => "ListUsers",
+    "MaxItems" => 50,
+    "Path" => "/my/path/",
+    "Version" => "2010-05-08"
+  },
+  parser: &ExAws.Iam.Parser.parse/2,
+  path: "/my/path/",
+  service: :iam
+}
+
+resp = ExAws.request(op)
+{:ok,
+ %{
+   body: %{
+     list_users_result: %{
+       is_truncated: "false",
+       users: [
+         %{
+           arn: "arn:aws:iam::085326204011:user/baz/bar",
+           create_date: "2018-10-17T00:09:19Z",
+           path: "/baz/",
+           user_id: "AIDAIAPPW7ERTKFL2R3TI",
+           user_name: "bar"
+         }
+       ]
+     },
+     response_metadata: %{request_id: "25c67fa6-d212-11e8-b8d6-a7951e68fc2c"}
+   },
+   status_code: 200
+ }}
+```
+
+The lib also provides higher-level convenience functions for interacting with specific services and for returning structs.
 
 ```elixir
-user =
-  "my_user"
-  |> Iam.create_user(path: "/my/path")
+op = Iam.create_user("my_user", path: "/my/path")
+%ExAws.Operation.Query{
+  action: "CreateUser",
+  params: %{
+    "Action" => "CreateUser",
+    "Path" => "/my/path",
+    "UserName" => "my_user",
+    "Version" => "2010-05-08"
+  },
+  parser: &ExAws.Iam.Parser.parse/2,
+  path: "/my/path",
+  service: :iam
+}
+
+user =  
+  op
   |> ExAws.request()
   |> Iam.to_user()
 
@@ -19,23 +71,31 @@ user =
   user_id: "AIDAJMIUVQAU2TW666HH2"
 }
 
-access_key =
-  "my_user"
-  |> Iam.create_access_key()
-  |> ExAws.request()
-  |> Iam.to_access_key()
-
-%AccessKey{
-  access_key_id: "AKIAJMQYDBOGSEDSCLJA",
-  access_key_selector: "HMAC",
-  create_date: "2018-10-17T13:50:19Z",
-  secret_access_key: "WfDYxMvaYbDj+VO87DHAwzzW3rQDifiFzej7Z5a0",
-  status: "Active",
-  user_name: "my_user"
-}
-
-Iam.delete_access_key("AKIAJMQYDBOGSEDSCLJA", "my_user")
 Iam.delete_user("my_user")
+```
+
+Parsers are currently implemented for the following actions:
+
+  * CreateAccessKey
+  * CreateGroup
+  * CreateUser
+  * DeleteAccessKey
+  * DeleteGroup
+  * DeleteUser
+  * GetAccessKeyLastUsed
+  * GetGroup
+  * GetUser
+  * ListAccessKeys
+  * ListGroup
+  * ListUsers
+  * UpdateAccessKey
+  * UpdateGroup
+  * UpdateUser
+
+You can also provider your own parser as long as it implements a `parse/2` function.
+
+```elixir
+op = Iam.operation(:list_users, parser: &MyParser.parse/2)
 ```
 
 ## Installation
