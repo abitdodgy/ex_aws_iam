@@ -63,7 +63,7 @@ defmodule ExAws.Iam do
   def list_users(opts \\ []) do
     :list_users
     |> to_params(opts)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -81,7 +81,7 @@ defmodule ExAws.Iam do
   def get_user(username, opts \\ []) do
     :get_user
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -104,7 +104,7 @@ defmodule ExAws.Iam do
   def create_user(username, opts \\ []) do
     :create_user
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -129,7 +129,7 @@ defmodule ExAws.Iam do
   def update_user(username, opts \\ []) do
     :update_user
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -147,7 +147,7 @@ defmodule ExAws.Iam do
   def delete_user(username, opts \\ []) do
     :delete_user
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -184,7 +184,7 @@ defmodule ExAws.Iam do
   def list_access_keys(opts \\ []) do
     :list_access_keys
     |> to_params(opts)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -202,7 +202,7 @@ defmodule ExAws.Iam do
   def get_access_key_last_used(access_key_id, opts \\ []) do
     :get_access_key_last_used
     |> to_params(opts, access_key_id: access_key_id)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -220,7 +220,7 @@ defmodule ExAws.Iam do
   def create_access_key(username, opts \\ []) do
     :create_access_key
     |> to_params(opts, user_name: username)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -243,7 +243,7 @@ defmodule ExAws.Iam do
   def update_access_key(access_key_id, status, opts \\ []) do
     :update_access_key
     |> to_params(opts, access_key_id: access_key_id, status: status)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -263,7 +263,7 @@ defmodule ExAws.Iam do
   def delete_access_key(access_key_id, username, opts \\ []) do
     :delete_access_key
     |> to_params(opts, access_key_id: access_key_id, user_name: username)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -297,7 +297,7 @@ defmodule ExAws.Iam do
   def create_group(name, opts \\ []) do
     :create_group
     |> to_params(opts, group_name: name)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -322,7 +322,7 @@ defmodule ExAws.Iam do
   def update_group(name, opts \\ []) do
     :update_group
     |> to_params(opts, group_name: name)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -340,7 +340,7 @@ defmodule ExAws.Iam do
   def delete_group(name, opts \\ []) do
     :delete_group
     |> to_params(opts, group_name: name)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -361,7 +361,7 @@ defmodule ExAws.Iam do
   def list_groups(opts \\ []) do
     :list_groups
     |> to_params(opts)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   @doc """
@@ -379,7 +379,7 @@ defmodule ExAws.Iam do
   def get_group(name, opts \\ []) do
     :get_group
     |> to_params(opts, group_name: name)
-    |> to_op(parser: &Parser.parse/2)
+    |> to_op()
   end
 
   defp to_params(action, opts, args \\ []) do
@@ -394,7 +394,7 @@ defmodule ExAws.Iam do
     %ExAws.Operation.Query{
       action: params["Action"],
       params: params,
-      parser: Keyword.get(opts, :parser),
+      parser: Keyword.get(opts, :parser, &Parser.parse/2),
       path: params["Path"] || "/",
       service: :iam
     }
