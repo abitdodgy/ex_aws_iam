@@ -176,7 +176,7 @@ defmodule ExAws.Iam do
     * `:max_items` - Use this only when paginating results to indicate
       the maximum number of items you want in the response.
 
-    * `:username` - Use this parameter to limit the results to the given username.
+    * `:user_name` - Use this parameter to limit the results to the given username.
 
   See shared options in moduledoc.
 

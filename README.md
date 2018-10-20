@@ -15,7 +15,7 @@ user =
   arn: "arn:aws:iam::085326204011:user/my_user",
   create_date: "2018-10-17T13:36:28Z",
   path: "/my/path/",
-  username: "my_user",
+  user_name: "my_user",
   user_id: "AIDAJMIUVQAU2TW666HH2"
 }
 
@@ -31,7 +31,7 @@ access_key =
   create_date: "2018-10-17T13:50:19Z",
   secret_access_key: "WfDYxMvaYbDj+VO87DHAwzzW3rQDifiFzej7Z5a0",
   status: "Active",
-  username: "my_user"
+  user_name: "my_user"
 }
 
 Iam.delete_access_key("AKIAJMQYDBOGSEDSCLJA", "my_user")
