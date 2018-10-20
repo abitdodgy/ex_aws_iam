@@ -7,6 +7,10 @@ defmodule ExAws.IamTest do
   alias ExAws.Iam
   alias ExAws.Iam.{AccessKey, Parser, User}
 
+  defmodule DummyParser do
+    def parse(resp, _action), do: resp
+  end
+
   describe "User" do
     test "list_users/0 returns an ExAws ListUsers op struct" do
       opts = [

@@ -1,15 +1,40 @@
 defmodule ExAws.Iam do
   @moduledoc """
-  Creates ExAws operations for making IAM requests.
+  Generates ExAws operations for making IAM API requests.
 
-  For more information on individual actions, see the AWS
-  IAM API documentation.
+  You can use the low-level `operation/2` to create any operation.
 
-    * https://docs.aws.amazon.com/IAM/latest/APIReference/API_{OpName}.html
+      iex> ExAws.Iam.operation(:list_users, max_items: 50, path: "/my/path/")
+      %ExAws.Operation.Query{
+        action: "ListUsers",
+        params: %{
+          "Action" => "ListUsers",
+          "MaxItems" => 50,
+          "Path" => "/my/path/",
+          "Version" => "2010-05-08"
+        },
+        parser: &ExAws.Iam.Parser.parse/2,
+        path: "/my/path/",
+        service: :iam
+      }
 
-  Replace `OpName` is the name of the operation you want to consult.
+  You can also use one of the higher-level convenience functions.
 
-  Actions that are currently implemented:
+      iex> ExAws.Iam.list_users(max_items: 50, path: "/my/path/")
+      %ExAws.Operation.Query{
+        action: "ListUsers",
+        params: %{
+          "Action" => "ListUsers",
+          "MaxItems" => 50,
+          "Path" => "/my/path/",
+          "Version" => "2010-05-08"
+        },
+        parser: &ExAws.Iam.Parser.parse/2,
+        path: "/my/path/",
+        service: :iam
+      }
+
+  Parsers are currently implemented for the following actions:
 
     * CreateAccessKey
     * CreateGroup
@@ -27,10 +52,19 @@ defmodule ExAws.Iam do
     * UpdateGroup
     * UpdateUser
 
+  For more information on individual actions, see the AWS
+  IAM API documentation.
+
+    * https://docs.aws.amazon.com/IAM/latest/APIReference/API_{OpName}.html
+
+  Replace `OpName` with the name of the operation you want to consult.
+
   ## Shared Options
 
     * `:version` - The API version that the request is written for, expressed in the
       format YYYY-MM-DD. Defaults to `2010-05-08`.
+
+    * `:parser` - A function to parse the request. Defaults to `Parser.parse/2`.
 
   """
 
@@ -41,9 +75,39 @@ defmodule ExAws.Iam do
 
   @shared_opts [version: "2010-05-08"]
 
-  # 
-  # User
-  # 
+  @doc """
+  Generates an ExAws operation for the given IAM API action.
+
+  See the AWS IAM API Reference for a list of available actions.
+
+    * https://docs.aws.amazon.com/IAM/latest/APIReference
+
+  ## Parameters
+
+    * `action` - The name of the action you want to call. Should be a _CamelCase_ string.
+
+    * `params` - A keyword list of any params the action takes.
+
+  ## Options
+
+  Any options that the given action 
+
+    * `parser` - A function to parse the request result. Defaults
+      to `Parser.parser/2`.
+
+  See shared options in moduledoc.
+
+  """
+  def operation(action, params, opts \\ []) do
+    {parser, params} = Keyword.pop(params, :parser, &Parser.parse/2)
+    opts = Keyword.put_new(opts, :parser, parser)
+
+    @shared_opts
+    |> Keyword.merge(params)
+    |> Keyword.put(:action, camelize(action))
+    |> list_to_camelized_map()
+    |> to_operation(opts)
+  end
 
   @doc """
   Creates an ExAws operation for a `ListUsers` IAM request.
@@ -61,9 +125,7 @@ defmodule ExAws.Iam do
 
   """
   def list_users(opts \\ []) do
-    :list_users
-    |> to_params(opts)
-    |> to_op()
+    operation(:list_users, opts)
   end
 
   @doc """
@@ -79,9 +141,7 @@ defmodule ExAws.Iam do
 
   """
   def get_user(username, opts \\ []) do
-    :get_user
-    |> to_params(opts, user_name: username)
-    |> to_op()
+    operation(:get_user, [user_name: username] ++ opts)
   end
 
   @doc """
@@ -102,9 +162,7 @@ defmodule ExAws.Iam do
 
   """
   def create_user(username, opts \\ []) do
-    :create_user
-    |> to_params(opts, user_name: username)
-    |> to_op()
+    operation(:create_user, [user_name: username] ++ opts)
   end
 
   @doc """
@@ -127,9 +185,7 @@ defmodule ExAws.Iam do
 
   """
   def update_user(username, opts \\ []) do
-    :update_user
-    |> to_params(opts, user_name: username)
-    |> to_op()
+    operation(:update_user, [user_name: username] ++ opts)
   end
 
   @doc """
@@ -145,9 +201,7 @@ defmodule ExAws.Iam do
 
   """
   def delete_user(username, opts \\ []) do
-    :delete_user
-    |> to_params(opts, user_name: username)
-    |> to_op()
+    operation(:delete_user, [user_name: username] ++ opts)
   end
 
   @doc """
@@ -161,10 +215,6 @@ defmodule ExAws.Iam do
   def to_user({:ok, %{body: body}}) do
     User.new(body)
   end
-
-  # 
-  # Access Key
-  # 
 
   @doc """
   Creates an ExAws operation for a `ListAccessKeys` IAM request.
@@ -182,9 +232,7 @@ defmodule ExAws.Iam do
 
   """
   def list_access_keys(opts \\ []) do
-    :list_access_keys
-    |> to_params(opts)
-    |> to_op()
+    operation(:list_access_keys, opts)
   end
 
   @doc """
@@ -200,9 +248,7 @@ defmodule ExAws.Iam do
 
   """
   def get_access_key_last_used(access_key_id, opts \\ []) do
-    :get_access_key_last_used
-    |> to_params(opts, access_key_id: access_key_id)
-    |> to_op()
+    operation(:get_access_key_last_used, [access_key_id: access_key_id] ++ opts)
   end
 
   @doc """
@@ -218,9 +264,7 @@ defmodule ExAws.Iam do
 
   """
   def create_access_key(username, opts \\ []) do
-    :create_access_key
-    |> to_params(opts, user_name: username)
-    |> to_op()
+    operation(:create_access_key, [user_name: username] ++ opts)
   end
 
   @doc """
@@ -241,9 +285,7 @@ defmodule ExAws.Iam do
 
   """
   def update_access_key(access_key_id, status, opts \\ []) do
-    :update_access_key
-    |> to_params(opts, access_key_id: access_key_id, status: status)
-    |> to_op()
+    operation(:update_access_key, [access_key_id: access_key_id, status: status] ++ opts)
   end
 
   @doc """
@@ -261,9 +303,7 @@ defmodule ExAws.Iam do
 
   """
   def delete_access_key(access_key_id, username, opts \\ []) do
-    :delete_access_key
-    |> to_params(opts, access_key_id: access_key_id, user_name: username)
-    |> to_op()
+    operation(:delete_access_key, [access_key_id: access_key_id, user_name: username] ++ opts)
   end
 
   @doc """
@@ -276,9 +316,40 @@ defmodule ExAws.Iam do
     AccessKey.new(body)
   end
 
-  # 
-  # Group
-  # 
+  @doc """
+  Creates an ExAws operation for a `ListGroups` IAM request.
+
+  ## Options
+
+    * `:marker` - Use this parameter only when paginating results.
+
+    * `:max_items` - Use this only when paginating results to indicate
+      the maximum number of items you want in the response.
+
+    * `:path_prefix` - The path prefix for filtering the results.
+
+  See shared options in moduledoc.
+
+  """
+  def list_groups(opts \\ []) do
+    operation(:list_groups, opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `GetGroup` IAM request.
+
+  ## Parameters
+
+    * `name` - The name of the group to return.
+
+  ## Options
+
+  See shared options in moduledoc.
+
+  """
+  def get_group(name, opts \\ []) do
+    operation(:get_group, [group_name: name] ++ opts)
+  end
 
   @doc """
   Creates an ExAws operation for a `CreateGroup` IAM request.
@@ -295,9 +366,7 @@ defmodule ExAws.Iam do
 
   """
   def create_group(name, opts \\ []) do
-    :create_group
-    |> to_params(opts, group_name: name)
-    |> to_op()
+    operation(:create_group, [group_name: name] ++ opts)
   end
 
   @doc """
@@ -320,9 +389,7 @@ defmodule ExAws.Iam do
 
   """
   def update_group(name, opts \\ []) do
-    :update_group
-    |> to_params(opts, group_name: name)
-    |> to_op()
+    operation(:update_group, [group_name: name] ++ opts)
   end
 
   @doc """
@@ -338,63 +405,14 @@ defmodule ExAws.Iam do
 
   """
   def delete_group(name, opts \\ []) do
-    :delete_group
-    |> to_params(opts, group_name: name)
-    |> to_op()
+    operation(:delete_group, [group_name: name] ++ opts)
   end
 
-  @doc """
-  Creates an ExAws operation for a `ListGroups` IAM request.
-
-  ## Options
-
-    * `:marker` - Use this parameter only when paginating results.
-
-    * `:max_items` - Use this only when paginating results to indicate
-      the maximum number of items you want in the response.
-
-    * `:path_prefix` - The path prefix for filtering the results.
-
-  See shared options in moduledoc.
-
-  """
-  def list_groups(opts \\ []) do
-    :list_groups
-    |> to_params(opts)
-    |> to_op()
-  end
-
-  @doc """
-  Creates an ExAws operation for a `GetGroup` IAM request.
-
-  ## Parameters
-
-    * `name` - The name of the group to return.
-
-  ## Options
-
-  See shared options in moduledoc.
-
-  """
-  def get_group(name, opts \\ []) do
-    :get_group
-    |> to_params(opts, group_name: name)
-    |> to_op()
-  end
-
-  defp to_params(action, opts, args \\ []) do
-    @shared_opts
-    |> Keyword.merge(opts)
-    |> Keyword.merge(args)
-    |> Keyword.put(:action, camelize(action))
-    |> list_to_camelized_map()
-  end
-
-  defp to_op(params, opts \\ []) do
+  defp to_operation(params, opts) do
     %ExAws.Operation.Query{
       action: params["Action"],
       params: params,
-      parser: Keyword.get(opts, :parser, &Parser.parse/2),
+      parser: Keyword.get(opts, :parser),
       path: params["Path"] || "/",
       service: :iam
     }
