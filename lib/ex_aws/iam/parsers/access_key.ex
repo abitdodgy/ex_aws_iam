@@ -20,7 +20,7 @@ defmodule ExAws.Iam.Parsers.AccessKey do
         access_key_metadata: [
           ~x"./AccessKeyMetadata/member"l,
           access_key_id: ~x"./AccessKeyId/text()"s,
-          username: ~x"./UserName/text()"s,
+          user_name: ~x"./UserName/text()"s,
           create_date: ~x"./CreateDate/text()"s,
           status: ~x"./Status/text()"s
         ]
@@ -43,7 +43,7 @@ defmodule ExAws.Iam.Parsers.AccessKey do
           region: ~x"./Region/text()"s,
           service_name: ~x"./ServiceName/text()"s
         ],
-        username: ~x"./UserName/text()"s
+        user_name: ~x"./UserName/text()"s
       ],
       response_metadata: response_metadata_path()
     )
@@ -62,7 +62,7 @@ defmodule ExAws.Iam.Parsers.AccessKey do
           access_key_id: ~x"./AccessKeyId/text()"s,
           secret_access_key: ~x"./SecretAccessKey/text()"s,
           access_key_selector: ~x"./AccessKeySelector/text()"s,
-          username: ~x"./UserName/text()"s,
+          user_name: ~x"./UserName/text()"s,
           create_date: ~x"./CreateDate/text()"s,
           status: ~x"./Status/text()"s
         ]

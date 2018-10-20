@@ -1,0 +1,17 @@
+<ListGroupsResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+	<ListGroupsResult>
+		<IsTruncated>false</IsTruncated>
+		<Groups>
+			<member>
+				<Path>/</Path>
+				<GroupName>foo</GroupName>
+				<Arn>arn:aws:iam::085326204011:group/foo</Arn>
+				<GroupId>AGPAIDI3XY2DD433B73WG</GroupId>
+				<CreateDate>2018-10-19T22:04:37Z</CreateDate>
+			</member>
+		</Groups>
+	</ListGroupsResult>
+	<ResponseMetadata>
+		<RequestId>81ca4919-d3fb-11e8-986e-5fbe089ad211</RequestId>
+	</ResponseMetadata>
+</ListGroupsResponse>

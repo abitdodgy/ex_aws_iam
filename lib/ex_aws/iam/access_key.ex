@@ -10,7 +10,7 @@ defmodule ExAws.Iam.AccessKey do
     create_date
     secret_access_key
     status
-    username
+    user_name
   ]a
 
   defstruct access_key_id: nil,
@@ -18,7 +18,7 @@ defmodule ExAws.Iam.AccessKey do
             create_date: nil,
             secret_access_key: nil,
             status: nil,
-            username: nil
+            user_name: nil
 
   @type t :: %ExAws.Iam.AccessKey{
           access_key_id: String.t(),
@@ -26,7 +26,7 @@ defmodule ExAws.Iam.AccessKey do
           create_date: String.t(),
           secret_access_key: String.t(),
           status: String.t(),
-          username: String.t()
+          user_name: String.t()
         }
 
   @doc """
@@ -50,7 +50,7 @@ defmodule ExAws.Iam.AccessKey do
       create_date: access_key[:create_date],
       secret_access_key: access_key[:secret_access_key],
       status: access_key[:status],
-      username: access_key[:username]
+      user_name: access_key[:user_name]
     }
   end
 end

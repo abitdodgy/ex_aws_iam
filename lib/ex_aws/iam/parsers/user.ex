@@ -20,7 +20,7 @@ defmodule ExAws.Iam.Parsers.User do
         users: [
           ~x"./Users/member"l,
           path: ~x"./Path/text()"s,
-          username: ~x"./UserName/text()"s,
+          user_name: ~x"./UserName/text()"s,
           arn: ~x"./Arn/text()"s,
           user_id: ~x"./UserId/text()"s,
           create_date: ~x"./CreateDate/text()"s
@@ -62,7 +62,7 @@ defmodule ExAws.Iam.Parsers.User do
     [
       ~x"//User",
       path: ~x"./Path/text()"s,
-      username: ~x"./UserName/text()"s,
+      user_name: ~x"./UserName/text()"s,
       arn: ~x"./Arn/text()"s,
       user_id: ~x"./UserId/text()"s,
       create_date: ~x"./CreateDate/text()"s

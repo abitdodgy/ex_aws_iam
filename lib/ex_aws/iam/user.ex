@@ -7,18 +7,18 @@ defmodule ExAws.Iam.User do
   @enforce_keys ~w[
     arn
     create_date
-    username
+    user_name
     user_id
   ]a
 
-  defstruct arn: nil, create_date: nil, path: "/", username: nil, user_id: nil
+  defstruct arn: nil, create_date: nil, path: "/", user_name: nil, user_id: nil
 
   @type t :: %ExAws.Iam.User{
           arn: String.t(),
           create_date: String.t(),
           path: String.t(),
           user_id: String.t(),
-          username: String.t()
+          user_name: String.t()
         }
 
   @doc """
@@ -40,7 +40,7 @@ defmodule ExAws.Iam.User do
       arn: user[:arn],
       create_date: user[:create_date],
       path: user[:path],
-      username: user[:username],
+      user_name: user[:user_name],
       user_id: user[:user_id]
     }
   end

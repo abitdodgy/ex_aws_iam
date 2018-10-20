@@ -49,6 +49,8 @@ defmodule ExAws.Iam.Parser do
   end
 
   @group_actions ~w[
+    ListGroups
+    GetGroup
     CreateGroup
   ]
 

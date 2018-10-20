@@ -128,7 +128,7 @@ defmodule ExAws.IamTest do
                  arn: user[:arn],
                  create_date: user[:create_date],
                  path: user[:path],
-                 username: user[:username],
+                 user_name: user[:user_name],
                  user_id: user[:user_id]
                }
     end
@@ -151,7 +151,7 @@ defmodule ExAws.IamTest do
                  arn: user[:arn],
                  create_date: user[:create_date],
                  path: user[:path],
-                 username: user[:username],
+                 user_name: user[:user_name],
                  user_id: user[:user_id]
                }
     end
@@ -174,7 +174,7 @@ defmodule ExAws.IamTest do
                  arn: user[:arn],
                  create_date: user[:create_date],
                  path: user[:path],
-                 username: user[:username],
+                 user_name: user[:user_name],
                  user_id: user[:user_id]
                },
                %User{
@@ -182,7 +182,7 @@ defmodule ExAws.IamTest do
                  create_date: user_2[:create_date],
                  path: user_2[:path],
                  user_id: user_2[:user_id],
-                 username: user_2[:username]
+                 user_name: user_2[:user_name]
                }
              ]
     end
@@ -290,7 +290,7 @@ defmodule ExAws.IamTest do
                  create_date: access_key[:create_date],
                  secret_access_key: access_key[:secret_access_key],
                  status: access_key[:status],
-                 username: access_key[:username]
+                 user_name: access_key[:user_name]
                }
              ]
     end
@@ -315,12 +315,52 @@ defmodule ExAws.IamTest do
                  create_date: access_key[:create_date],
                  secret_access_key: access_key[:secret_access_key],
                  status: access_key[:status],
-                 username: access_key[:username]
+                 user_name: access_key[:user_name]
                }
     end
   end
 
   describe "Group" do
+    test "list_groups/0 returns an ExAws ListGroups op struct" do
+      opts = [
+        marker: "abc",
+        max_items: 50,
+        path_prefix: "/prefix"
+      ]
+
+      expected = %ExAws.Operation.Query{
+        action: "ListGroups",
+        params: %{
+          "Action" => "ListGroups",
+          "Marker" => "abc",
+          "MaxItems" => 50,
+          "PathPrefix" => "/prefix",
+          "Version" => "2010-05-08"
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.list_groups(opts) == expected
+    end
+
+    test "get_group/1 returns an ExAws GetGroup op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "GetGroup",
+        params: %{
+          "Action" => "GetGroup",
+          "GroupName" => "foo",
+          "Version" => "2010-05-08"
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.get_group("foo") == expected
+    end
+
     test "create_group/1 returns an ExAws CreateGroup op struct" do
       opts = [
         path: "/my/path"

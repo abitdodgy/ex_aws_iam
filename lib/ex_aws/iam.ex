@@ -12,14 +12,19 @@ defmodule ExAws.Iam do
   Actions that are currently implemented:
 
     * CreateAccessKey
+    * CreateGroup
     * CreateUser
     * DeleteAccessKey
+    * DeleteGroup
     * DeleteUser
     * GetAccessKeyLastUsed
+    * GetGroup
     * GetUser
     * ListAccessKeys
+    * ListGroup
     * ListUsers
     * UpdateAccessKey
+    * UpdateGroup
     * UpdateUser
 
   ## Shared Options
@@ -230,7 +235,7 @@ defmodule ExAws.Iam do
 
   ## Options
 
-    * `:username` - The name of the user whose access key pair you want to update.
+    * `:user_name` - The name of the user whose access key pair you want to update.
 
   See shared options in moduledoc.
 
@@ -334,6 +339,45 @@ defmodule ExAws.Iam do
   """
   def delete_group(name, opts \\ []) do
     :delete_group
+    |> to_params(opts, group_name: name)
+    |> to_op(parser: &Parser.parse/2)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `ListGroups` IAM request.
+
+  ## Options
+
+    * `:marker` - Use this parameter only when paginating results.
+
+    * `:max_items` - Use this only when paginating results to indicate
+      the maximum number of items you want in the response.
+
+    * `:path_prefix` - The path prefix for filtering the results.
+
+  See shared options in moduledoc.
+
+  """
+  def list_groups(opts \\ []) do
+    :list_groups
+    |> to_params(opts)
+    |> to_op(parser: &Parser.parse/2)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `GetGroup` IAM request.
+
+  ## Parameters
+
+    * `name` - The name of the group to return.
+
+  ## Options
+
+  See shared options in moduledoc.
+
+  """
+  def get_group(name, opts \\ []) do
+    :get_group
     |> to_params(opts, group_name: name)
     |> to_op(parser: &Parser.parse/2)
   end

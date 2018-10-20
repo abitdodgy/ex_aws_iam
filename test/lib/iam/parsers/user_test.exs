@@ -22,14 +22,14 @@ defmodule ExAws.Iam.Parsers.UserTest do
                  create_date: "2018-10-17T00:09:19Z",
                  path: "/baz/",
                  user_id: "AIDAIAPPW7ERTKFL2R3TI",
-                 username: "bar"
+                 user_name: "bar"
                },
                %{
                  arn: "arn:aws:iam::085326204011:user/some_user",
                  create_date: "2018-10-14T18:31:50Z",
                  path: "/",
                  user_id: "AIDAJZTLCIRAWNUUPBREC",
-                 username: "some_user"
+                 user_name: "some_user"
                }
              ]
            },
@@ -55,7 +55,7 @@ defmodule ExAws.Iam.Parsers.UserTest do
                create_date: "2018-10-14T18:31:50Z",
                path: "/",
                user_id: "AIDAJZTLCIRAWNUUPBREC",
-               username: "foo"
+               user_name: "foo"
              }
            },
            response_metadata: %{request_id: "21a662e8-d27c-11e8-921e-e7a12b78bc94"}
@@ -80,7 +80,7 @@ defmodule ExAws.Iam.Parsers.UserTest do
                create_date: "2018-10-17T13:36:28Z",
                path: "/",
                user_id: "AIDAJMIUVQAU2TW666HH2",
-               username: "foo"
+               user_name: "foo"
              }
            },
            response_metadata: %{

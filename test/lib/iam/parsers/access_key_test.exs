@@ -19,7 +19,7 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
                  access_key_id: "AKIAIUOHJT6CXCJW43DQ",
                  create_date: "2018-10-16T23:58:20Z",
                  status: "Active",
-                 username: "foo"
+                 user_name: "foo"
                }
              ],
              is_truncated: "false",
@@ -47,7 +47,7 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
                region: "us-east-1",
                service_name: "iam"
              },
-             username: "some_user"
+             user_name: "some_user"
            },
            response_metadata: %{request_id: "523b4eec-d213-11e8-a831-bf9f1ef556f4"}
          },
@@ -72,7 +72,7 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
                create_date: "2018-10-17T13:50:19Z",
                secret_access_key: "WfDYxMvaYbDj+VO87DHAwzzW3rQDifiFzej7Z5a0",
                status: "Active",
-               username: "foo"
+               user_name: "foo"
              }
            },
            response_metadata: %{request_id: "95e4040f-d213-11e8-9c4e-3b1e4516a97d"}

@@ -73,6 +73,14 @@ config :ex_aws,
   * UpdateUser
   * DeleteUser
 
+### Group
+
+  * ListGroups
+  * GetGroup
+  * CreateGroup
+  * UpdateGroup
+  * DeleteGroup
+
 ### AccessKey
 
   * ListAccessKeys
