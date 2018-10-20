@@ -76,9 +76,8 @@ defmodule ExAws.Iam do
   @shared_opts [version: "2010-05-08"]
 
   @doc """
-  Generates an ExAws operation for the given IAM API action.
-
-  See the AWS IAM API Reference for a list of available actions.
+  Generates an ExAws operation for the given IAM API action. See the AWS IAM
+  API Reference for a list of available actions and their parameters.
 
     * https://docs.aws.amazon.com/IAM/latest/APIReference
 
