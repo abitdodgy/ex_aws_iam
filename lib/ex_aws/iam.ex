@@ -86,11 +86,9 @@ defmodule ExAws.Iam do
 
     * `action` - The name of the action you want to call. Should be a _CamelCase_ string.
 
-    * `params` - A keyword list of any params the action takes.
+    * `params` - A keyword list of any params the action accepts.
 
   ## Options
-
-  Any options that the given action 
 
     * `parser` - A function to parse the request result. Defaults
       to `Parser.parser/2`.

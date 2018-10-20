@@ -2,9 +2,9 @@
 
 Easily interact with the AWS IAM API to work with users, access keys, and any other entity. This is an IAM service module for [ExAws](https://github.com/ex-aws/ex_aws).
 
-The lib provides a low-level `operation/3` function to build any AIM API action.
+The lib provides a low-level `operation/3` function to build any IAM API action.
 
-```
+```elixir
 op = Iam.operation(:list_users, max_items: 50, path: "/my/path/")
 %ExAws.Operation.Query{
   action: "ListUsers",
@@ -27,11 +27,11 @@ resp = ExAws.request(op)
        is_truncated: "false",
        users: [
          %{
-           arn: "arn:aws:iam::085326204011:user/baz/bar",
+           arn: "arn:aws:iam::085326204011:user/my/path/abitdodgy",
            create_date: "2018-10-17T00:09:19Z",
-           path: "/baz/",
+           path: "/my/path/",
            user_id: "AIDAIAPPW7ERTKFL2R3TI",
-           user_name: "bar"
+           user_name: "abitdodgy"
          }
        ]
      },
@@ -41,7 +41,7 @@ resp = ExAws.request(op)
  }}
 ```
 
-The lib also provides higher-level convenience functions for interacting with specific services and for returning structs.
+The lib also provides higher-level convenience functions for interacting with specific services.
 
 ```elixir
 op = Iam.create_user("my_user", path: "/my/path")
@@ -57,8 +57,12 @@ op = Iam.create_user("my_user", path: "/my/path")
   path: "/my/path",
   service: :iam
 }
+```
 
-user =  
+You can also return entity structs.
+
+```
+user =
   op
   |> ExAws.request()
   |> Iam.to_user()
@@ -95,7 +99,7 @@ Parsers are currently implemented for the following actions:
 You can also provider your own parser as long as it implements a `parse/2` function.
 
 ```elixir
-op = Iam.operation(:list_users, parser: &MyParser.parse/2)
+Iam.operation(:list_users, parser: &MyParser.parse/2)
 ```
 
 ## Installation
@@ -123,31 +127,7 @@ config :ex_aws,
 
 ## Usage
 
-[See the documentation](https://hexdocs.pm/ex_aws_iam) for details. The following operations are currently available.
-
-### User
-
-  * ListUsers
-  * GetUser
-  * CreateUser
-  * UpdateUser
-  * DeleteUser
-
-### Group
-
-  * ListGroups
-  * GetGroup
-  * CreateGroup
-  * UpdateGroup
-  * DeleteGroup
-
-### AccessKey
-
-  * ListAccessKeys
-  * GetAccessKeyLastUsed
-  * CreateAccessKey
-  * UpdateAccessKey
-  * DeleteAccessKey
+[See the documentation](https://hexdocs.pm/ex_aws_iam/ExAws.Iam.html) for details.
 
 ## License
 
