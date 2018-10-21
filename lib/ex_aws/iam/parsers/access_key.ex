@@ -4,70 +4,65 @@ defmodule ExAws.Iam.Parsers.AccessKey do
 
   """
 
+  import ExAws.Iam.TestMacro
   import SweetXml, only: [sigil_x: 2]
-  import ExAws.Iam.Utils, only: [response_metadata_path: 0]
 
-  @doc """
-  Parses XML from IAM `ListAccessKeys` response.
-
-  """
-  def parse(xml, "ListAccessKeys") do
-    SweetXml.xpath(xml, ~x"//ListAccessKeysResponse",
-      list_access_keys_result: [
+  defparser(:list_access_keys,
+    fields: [
+      list_users_result: [
         ~x"//ListAccessKeysResult",
-        is_truncated: ~x"./IsTruncated/text()"s,
-        marker: ~x"./Marker/text()"o,
+        :is_truncated,
+        :marker,
         access_key_metadata: [
           ~x"./AccessKeyMetadata/member"l,
-          access_key_id: ~x"./AccessKeyId/text()"s,
-          user_name: ~x"./UserName/text()"s,
-          create_date: ~x"./CreateDate/text()"s,
-          status: ~x"./Status/text()"s
+          :access_key_id,
+          :create_date,
+          :user_name,
+          :status
         ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 
-  @doc """
-  Parses XML from IAM `GetAccessKeyLastUsed` response.
-
-  """
-  def parse(xml, "GetAccessKeyLastUsed") do
-    SweetXml.xpath(xml, ~x"//GetAccessKeyLastUsedResponse",
+  defparser(:get_access_key_last_used,
+    fields: [
       get_access_key_last_used_result: [
-        ~x"//GetAccessKeyLastUsedResult",
         access_key_last_used: [
-          ~x"//AccessKeyLastUsed",
-          last_used_date: ~x"./LastUsedDate/text()"s,
-          region: ~x"./Region/text()"s,
-          service_name: ~x"./ServiceName/text()"s
-        ],
-        user_name: ~x"./UserName/text()"s
-      ],
-      response_metadata: response_metadata_path()
-    )
-  end
-
-  @doc """
-  Parses XML from IAM `CreateAccessKey` response.
-
-  """
-  def parse(xml, "CreateAccessKey") do
-    SweetXml.xpath(xml, ~x"//CreateAccessKeyResponse",
-      create_access_key_result: [
-        ~x"//CreateAccessKeyResult",
-        access_key: [
-          ~x"//AccessKey",
-          access_key_id: ~x"./AccessKeyId/text()"s,
-          secret_access_key: ~x"./SecretAccessKey/text()"s,
-          access_key_selector: ~x"./AccessKeySelector/text()"s,
-          user_name: ~x"./UserName/text()"s,
-          create_date: ~x"./CreateDate/text()"s,
-          status: ~x"./Status/text()"s
+          ~x"./AccessKeyLastUsed",
+          :last_used_date,
+          :region,
+          :service_name
         ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
+
+  defparser(:create_access_key,
+    fields: [
+      create_access_key_result: [
+        ~x"./CreateAccessKey",
+        access_key: [
+          ~x"./AccessKey",
+          :access_key_id,
+          :secret_access_key,
+          :access_key_selector,
+          :user_name,
+          :create_date,
+          :status
+        ]
+      ],
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 end

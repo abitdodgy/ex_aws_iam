@@ -13,19 +13,21 @@ defmodule ExAws.Iam.Parsers.AccessKeyTest do
       {:ok,
        %{
          body: %{
-           list_access_keys_result: %{
-             access_key_metadata: [
-               %{
-                 access_key_id: "AKIAIUOHJT6CXCJW43DQ",
-                 create_date: "2018-10-16T23:58:20Z",
-                 status: "Active",
-                 user_name: "foo"
-               }
-             ],
-             is_truncated: "false",
-             marker: nil
-           },
-           response_metadata: %{request_id: "f4db0a12-d212-11e8-a23b-47700e6bdeb6"}
+           list_access_keys_response: %{
+             list_access_keys_result: %{
+               access_key_metadata: [
+                 %{
+                   access_key_id: "AKIAIUOHJT6CXCJW43DQ",
+                   create_date: "2018-10-16T23:58:20Z",
+                   status: "Active",
+                   user_name: "foo"
+                 }
+               ],
+               is_truncated: "false",
+               marker: ""
+             },
+             response_metadata: %{request_id: "f4db0a12-d212-11e8-a23b-47700e6bdeb6"}
+           }
          },
          status_code: 200
        }}

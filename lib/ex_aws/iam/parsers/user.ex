@@ -4,68 +4,68 @@ defmodule ExAws.Iam.Parsers.User do
 
   """
 
+  import ExAws.Iam.TestMacro
   import SweetXml, only: [sigil_x: 2]
-  import ExAws.Iam.Utils, only: [response_metadata_path: 0]
 
-  @doc """
-  Parses XML from IAM `ListUsers` response.
-
-  """
-  def parse(xml, "ListUsers") do
-    SweetXml.xpath(xml, ~x"//ListUsersResponse",
+  defparser(:list_users,
+    fields: [
       list_users_result: [
         ~x"//ListUsersResult",
-        is_truncated: ~x"./IsTruncated/text()"s,
-        marker: ~x"./Marker/text()"o,
+        :is_truncated,
+        :marker,
         users: [
           ~x"./Users/member"l,
-          path: ~x"./Path/text()"s,
-          user_name: ~x"./UserName/text()"s,
-          arn: ~x"./Arn/text()"s,
-          user_id: ~x"./UserId/text()"s,
-          create_date: ~x"./CreateDate/text()"s
+          :path,
+          :user_name,
+          :arn,
+          :user_id,
+          :create_date
         ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 
-  @doc """
-  Parses XML from IAM `GetUser` response.
-
-  """
-  def parse(xml, "GetUser") do
-    SweetXml.xpath(xml, ~x"//GetUserResponse",
+  defparser(:get_user,
+    fields: [
       get_user_result: [
         ~x"//GetUserResult",
-        user: user_path()
+        user: [
+          ~x"./User",
+          :path,
+          :user_name,
+          :arn,
+          :user_id,
+          :create_date
+        ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 
-  @doc """
-  Parses XML from IAM `CreateUser` response.
-
-  """
-  def parse(xml, "CreateUser") do
-    SweetXml.xpath(xml, ~x"//CreateUserResponse",
+  defparser(:create_user,
+    fields: [
       create_user_result: [
         ~x"//CreateUserResult",
-        user: user_path()
+        user: [
+          ~x"./User",
+          :path,
+          :user_name,
+          :arn,
+          :user_id,
+          :create_date
+        ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
-
-  defp user_path do
-    [
-      ~x"//User",
-      path: ~x"./Path/text()"s,
-      user_name: ~x"./UserName/text()"s,
-      arn: ~x"./Arn/text()"s,
-      user_id: ~x"./UserId/text()"s,
-      create_date: ~x"./CreateDate/text()"s
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
     ]
-  end
+  )
 end

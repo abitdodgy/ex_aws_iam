@@ -4,68 +4,68 @@ defmodule ExAws.Iam.Parsers.Group do
 
   """
 
+  import ExAws.Iam.TestMacro
   import SweetXml, only: [sigil_x: 2]
-  import ExAws.Iam.Utils, only: [response_metadata_path: 0]
 
-  @doc """
-  Parses XML from IAM `ListGroups` response.
-
-  """
-  def parse(xml, "ListGroups") do
-    SweetXml.xpath(xml, ~x"//ListGroupsResponse",
+  defparser(:list_groups,
+    fields: [
       list_groups_result: [
         ~x"//ListGroupsResult",
-        is_truncated: ~x"./IsTruncated/text()"s,
-        marker: ~x"./Marker/text()"o,
+        :is_truncated,
+        :marker,
         groups: [
           ~x"./Groups/member"l,
-          path: ~x"./Path/text()"s,
-          group_name: ~x"./GroupName/text()"s,
-          arn: ~x"./Arn/text()"s,
-          group_id: ~x"./GroupId/text()"s,
-          create_date: ~x"./CreateDate/text()"s
+          :path,
+          :group_name,
+          :arn,
+          :group_id,
+          :create_date
         ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 
-  @doc """
-  Parses XML from IAM `GetGroup` response.
-
-  """
-  def parse(xml, "GetGroup") do
-    SweetXml.xpath(xml, ~x"//GetGroupResponse",
+  defparser(:get_group,
+    fields: [
       get_group_result: [
         ~x"//GetGroupResult",
-        group: group_path()
+        group: [
+          ~x"./Group",
+          :path,
+          :group_name,
+          :arn,
+          :group_id,
+          :create_date
+        ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 
-  @doc """
-  Parses XML from IAM `CreateGroup` response.
-
-  """
-  def parse(xml, "CreateGroup") do
-    SweetXml.xpath(xml, ~x"//CreateGroupResponse",
+  defparser(:create_group,
+    fields: [
       create_group_result: [
         ~x"//CreateGroupResult",
-        group: group_path()
+        group: [
+          ~x"./Group",
+          :path,
+          :group_name,
+          :arn,
+          :group_id,
+          :create_date
+        ]
       ],
-      response_metadata: response_metadata_path()
-    )
-  end
-
-  defp group_path do
-    [
-      ~x"//Group",
-      path: ~x"./Path/text()"s,
-      group_name: ~x"./GroupName/text()"s,
-      arn: ~x"./Arn/text()"s,
-      group_id: ~x"./GroupId/text()"s,
-      create_date: ~x"./CreateDate/text()"s
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
     ]
-  end
+  )
 end

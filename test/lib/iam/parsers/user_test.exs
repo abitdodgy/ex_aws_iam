@@ -13,25 +13,27 @@ defmodule ExAws.Iam.Parsers.UserTest do
       {:ok,
        %{
          body: %{
-           list_users_result: %{
-             is_truncated: "false",
-             marker: nil,
-             users: [
-               %{
-                 arn: "arn:aws:iam::085326204011:user/baz/bar",
-                 create_date: "2018-10-17T00:09:19Z",
-                 path: "/baz/",
-                 user_id: "AIDAIAPPW7ERTKFL2R3TI",
-                 user_name: "bar"
-               },
-               %{
-                 arn: "arn:aws:iam::085326204011:user/some_user",
-                 create_date: "2018-10-14T18:31:50Z",
-                 path: "/",
-                 user_id: "AIDAJZTLCIRAWNUUPBREC",
-                 user_name: "some_user"
-               }
-             ]
+           list_users_response: %{
+             list_users_result: %{
+               is_truncated: "false",
+               marker: "",
+               users: [
+                 %{
+                   arn: "arn:aws:iam::085326204011:user/baz/bar",
+                   create_date: "2018-10-17T00:09:19Z",
+                   path: "/baz/",
+                   user_id: "AIDAIAPPW7ERTKFL2R3TI",
+                   user_name: "bar"
+                 },
+                 %{
+                   arn: "arn:aws:iam::085326204011:user/some_user",
+                   create_date: "2018-10-14T18:31:50Z",
+                   path: "/",
+                   user_id: "AIDAJZTLCIRAWNUUPBREC",
+                   user_name: "some_user"
+                 }
+               ]
+             }
            },
            response_metadata: %{request_id: "25c67fa6-d212-11e8-b8d6-a7951e68fc2c"}
          },
