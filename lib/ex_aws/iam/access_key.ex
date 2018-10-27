@@ -33,13 +33,15 @@ defmodule ExAws.Iam.AccessKey do
   Returns a struct representation of an IAM AccessKey.
 
   """
-  def new(%{list_access_keys_result: %{access_key_metadata: access_keys}}) do
+  def new(%{
+        list_access_keys_response: %{list_access_keys_result: %{access_key_metadata: access_keys}}
+      }) do
     Enum.map(access_keys, fn key ->
       access_key_to_struct(key)
     end)
   end
 
-  def new(%{create_access_key_result: %{access_key: access_key}}) do
+  def new(%{create_access_key_response: %{create_access_key_result: %{access_key: access_key}}}) do
     access_key_to_struct(access_key)
   end
 

@@ -25,11 +25,11 @@ defmodule ExAws.Iam.User do
   Returns a struct representation of an IAM User.
 
   """
-  def new(%{get_user_result: %{user: user}}), do: to_struct(user)
+  def new(%{get_user_response: %{get_user_result: %{user: user}}}), do: to_struct(user)
 
-  def new(%{create_user_result: %{user: user}}), do: to_struct(user)
+  def new(%{create_user_response: %{create_user_result: %{user: user}}}), do: to_struct(user)
 
-  def new(%{list_users_result: %{users: users}}) do
+  def new(%{list_users_response: %{list_users_result: %{users: users}}}) do
     Enum.map(users, fn user ->
       to_struct(user)
     end)

@@ -13,10 +13,10 @@ defmodule ExAws.Iam.TestMacro do
 
     quote do
       def parse(xml, unquote(action_name)) do
-        SweetXml.xpath(xml, ~x"//#{unquote(path(action_name, "Response"))}", [
+        SweetXml.xpath(xml, ~x"//#{unquote(xml_path(action_name))}", [
           {
-            unquote(node(action_name, "Response")),
-            [~x"//#{unquote(path(action_name, "Response"))}" | unquote(fields)]
+            unquote(xml_node(action_name)),
+            [~x"//#{unquote(xml_path(action_name))}" | unquote(fields)]
           }
         ])
       end
@@ -27,8 +27,8 @@ defmodule ExAws.Iam.TestMacro do
     end
   end
 
-  defp path(action, suffix), do: action <> suffix
-  defp node(action, suffix), do: to_snake(action <> suffix)
+  defp xml_path(action), do: action <> "Response"
+  defp xml_node(action), do: xml_path(action) |> to_snake()
 
   defp compile(field) when is_atom(field) do
     quote do

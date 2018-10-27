@@ -32,6 +32,8 @@ defmodule ExAws.Iam.Parser do
     ListUsers
     GetUser
     CreateUser
+    UpdateUser
+    DeleteUser
   ]
 
   defp dispatch(xml, action) when action in @user_actions do
@@ -42,6 +44,8 @@ defmodule ExAws.Iam.Parser do
     ListAccessKeys
     GetAccessKeyLastUsed
     CreateAccessKey
+    UpdateAccessKey
+    DeleteAccessKey
   ]
 
   defp dispatch(xml, action) when action in @access_key_actions do
@@ -52,22 +56,11 @@ defmodule ExAws.Iam.Parser do
     ListGroups
     GetGroup
     CreateGroup
+    UpdateGroup
+    DeleteGroup
   ]
 
   defp dispatch(xml, action) when action in @group_actions do
     Group.parse(xml, action)
-  end
-
-  @metadata_only_actions ~w[
-    UpdateAccessKey
-    UpdateGroup
-    UpdateUser
-    DeleteAccessKey
-    DeleteGroup
-    DeleteUser
-  ]
-
-  defp dispatch(xml, action) when action in @metadata_only_actions do
-    Metadata.parse(xml, action)
   end
 end

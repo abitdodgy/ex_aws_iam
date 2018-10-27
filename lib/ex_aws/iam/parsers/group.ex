@@ -68,4 +68,22 @@ defmodule ExAws.Iam.Parsers.Group do
       ]
     ]
   )
+
+  defparser(:update_group,
+    fields: [
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
+
+  defparser(:delete_group,
+    fields: [
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 end

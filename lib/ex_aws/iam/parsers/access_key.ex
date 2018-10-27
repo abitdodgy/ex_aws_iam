@@ -9,7 +9,7 @@ defmodule ExAws.Iam.Parsers.AccessKey do
 
   defparser(:list_access_keys,
     fields: [
-      list_users_result: [
+      list_access_keys_result: [
         ~x"//ListAccessKeysResult",
         :is_truncated,
         :marker,
@@ -31,12 +31,15 @@ defmodule ExAws.Iam.Parsers.AccessKey do
   defparser(:get_access_key_last_used,
     fields: [
       get_access_key_last_used_result: [
-        access_key_last_used: [
-          ~x"./AccessKeyLastUsed",
-          :last_used_date,
-          :region,
-          :service_name
-        ]
+        ~x"//GetAccessKeyLastUsedResult",
+        {:access_key_last_used,
+         [
+           ~x"./AccessKeyLastUsed",
+           :last_used_date,
+           :region,
+           :service_name
+         ]},
+        :user_name
       ],
       response_metadata: [
         ~x"//ResponseMetadata",
@@ -48,7 +51,7 @@ defmodule ExAws.Iam.Parsers.AccessKey do
   defparser(:create_access_key,
     fields: [
       create_access_key_result: [
-        ~x"./CreateAccessKey",
+        ~x"//CreateAccessKeyResult",
         access_key: [
           ~x"./AccessKey",
           :access_key_id,
@@ -59,6 +62,24 @@ defmodule ExAws.Iam.Parsers.AccessKey do
           :status
         ]
       ],
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
+
+  defparser(:update_access_key,
+    fields: [
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
+
+  defparser(:delete_access_key,
+    fields: [
       response_metadata: [
         ~x"//ResponseMetadata",
         :request_id

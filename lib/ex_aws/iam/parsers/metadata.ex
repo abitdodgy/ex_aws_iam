@@ -8,6 +8,13 @@ defmodule ExAws.Iam.Parsers.Metadata do
   import SweetXml, only: [sigil_x: 2]
   import ExAws.Iam.Utils, only: [response_metadata_path: 0]
 
+  UpdateAccessKey
+  UpdateGroup
+  UpdateUser
+  DeleteAccessKey
+  DeleteGroup
+  DeleteUser
+
   @doc """
   A generic parser for responses that contain only metadata.
 

@@ -68,4 +68,22 @@ defmodule ExAws.Iam.Parsers.User do
       ]
     ]
   )
+
+  defparser(:update_user,
+    fields: [
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
+
+  defparser(:delete_user,
+    fields: [
+      response_metadata: [
+        ~x"//ResponseMetadata",
+        :request_id
+      ]
+    ]
+  )
 end

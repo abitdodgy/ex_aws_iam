@@ -121,8 +121,10 @@ defmodule ExAws.IamTest do
       {:ok,
        %{
          body: %{
-           get_user_result: %{
-             user: user
+           get_user_response: %{
+             get_user_result: %{
+               user: user
+             }
            }
          }
        }} = response
@@ -144,8 +146,10 @@ defmodule ExAws.IamTest do
       {:ok,
        %{
          body: %{
-           create_user_result: %{
-             user: user
+           create_user_response: %{
+             create_user_result: %{
+               user: user
+             }
            }
          }
        }} = response
@@ -167,8 +171,10 @@ defmodule ExAws.IamTest do
       {:ok,
        %{
          body: %{
-           list_users_result: %{
-             users: [user, user_2]
+           list_users_response: %{
+             list_users_result: %{
+               users: [user, user_2]
+             }
            }
          }
        }} = response
@@ -281,8 +287,10 @@ defmodule ExAws.IamTest do
       {:ok,
        %{
          body: %{
-           list_access_keys_result: %{
-             access_key_metadata: [access_key]
+           list_access_keys_response: %{
+             list_access_keys_result: %{
+               access_key_metadata: [access_key]
+             }
            }
          }
        }} = response
@@ -306,8 +314,10 @@ defmodule ExAws.IamTest do
       {:ok,
        %{
          body: %{
-           create_access_key_result: %{
-             access_key: access_key
+           create_access_key_response: %{
+             create_access_key_result: %{
+               access_key: access_key
+             }
            }
          }
        }} = response
