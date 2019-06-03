@@ -425,4 +425,46 @@ defmodule ExAws.IamTest do
       assert Iam.delete_group("my_group") == expected
     end
   end
+
+  describe "Role" do
+    test "list_roles/0 returns an ExAws ListRoles op struct" do
+      opts = [
+        marker: "abc",
+        max_items: 50,
+        path_prefix: "/prefix"
+      ]
+
+      expected = %ExAws.Operation.Query{
+        action: "ListRoles",
+        params: %{
+          "Action" => "ListRoles",
+          "Marker" => "abc",
+          "MaxItems" => 50,
+          "PathPrefix" => "/prefix",
+          "Version" => "2010-05-08"
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.list_roles(opts) == expected
+    end
+
+    test "list_role_tags/1 returns an ExAws ListRoleTags op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "ListRoleTags",
+        params: %{
+          "Action" => "ListRoleTags",
+          "RoleName" => "foo",
+          "Version" => "2010-05-08"
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.list_role_tags("foo") == expected
+    end
+  end
 end
