@@ -14,6 +14,7 @@ defmodule ExAws.Iam.Parser do
     AccessKey,
     Group,
     Metadata,
+    Role,
     User
   }
 
@@ -56,6 +57,15 @@ defmodule ExAws.Iam.Parser do
 
   defp dispatch(xml, action) when action in @group_actions do
     Group.parse(xml, action)
+  end
+
+  @role_actions ~w[
+    ListRoles
+    ListRoleTags
+  ]
+
+  defp dispatch(xml, action) when action in @role_actions do
+    Role.parse(xml, action)
   end
 
   @metadata_only_actions ~w[

@@ -47,6 +47,8 @@ defmodule ExAws.Iam do
     * GetUser
     * ListAccessKeys
     * ListGroup
+    * ListRoles
+    * ListRoleTags
     * ListUsers
     * UpdateAccessKey
     * UpdateGroup
@@ -76,8 +78,9 @@ defmodule ExAws.Iam do
   @shared_opts [version: "2010-05-08"]
 
   @doc """
-  Generates an ExAws operation for the given IAM API action. See the AWS IAM
-  API Reference for a list of available actions and their parameters.
+  Generates an ExAws operation for the given IAM API action.
+
+  See the AWS IAM API Reference for a list of available actions.
 
     * https://docs.aws.amazon.com/IAM/latest/APIReference
 
@@ -85,9 +88,11 @@ defmodule ExAws.Iam do
 
     * `action` - The name of the action you want to call. Should be a _CamelCase_ string.
 
-    * `params` - A keyword list of any params the action accepts.
+    * `params` - A keyword list of any params the action takes.
 
   ## Options
+
+  Any options that the given action 
 
     * `parser` - A function to parse the request result. Defaults
       to `Parser.parser/2`.
@@ -403,6 +408,48 @@ defmodule ExAws.Iam do
   """
   def delete_group(name, opts \\ []) do
     operation(:delete_group, [group_name: name] ++ opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `ListRoles` IAM request.
+
+  ## Options
+
+    * `:marker` - Use this parameter only when paginating results.
+
+    * `:max_items` - Use this only when paginating results to indicate
+      the maximum number of items you want in the response.
+
+    * `:path_prefix` - The path prefix for filtering the results.
+
+  See shared options in moduledoc.
+
+  """
+  def list_roles(opts \\ []) do
+    operation(:list_roles, opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `ListRoleTags` IAM request.
+
+  ## Parameters
+
+    * `role_name` - The name of the role to return for which you want to get the list of tags.
+
+  ## Options
+
+    * `:marker` - Use this parameter only when paginating results.
+
+    * `:max_items` - Use this only when paginating results to indicate
+      the maximum number of items you want in the response.
+
+    * `:path_prefix` - The path prefix for filtering the results.
+
+  See shared options in moduledoc.
+
+  """
+  def list_role_tags(role_name, opts \\ []) do
+    operation(:list_role_tags, [role_name: role_name] ++ opts)
   end
 
   defp to_operation(params, opts) do

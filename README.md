@@ -91,6 +91,8 @@ Parsers are currently implemented for the following actions:
   * GetUser
   * ListAccessKeys
   * ListGroup
+  * ListRoles
+  * ListRoleTags
   * ListUsers
   * UpdateAccessKey
   * UpdateGroup

@@ -1,0 +1,14 @@
+<ListRoleTagsResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+	<ListRoleTagsResult>
+		<IsTruncated>false</IsTruncated>
+		<Tags>
+			<member>
+                <Value>developer</Value>
+                <Key>UserRole</Key>
+			</member>
+		</Tags>
+	</ListRoleTagsResult>
+	<ResponseMetadata>
+		<RequestId>81ca4919-d3fb-11e8-986e-5fbe089ad211</RequestId>
+	</ResponseMetadata>
+</ListRoleTagsResponse>

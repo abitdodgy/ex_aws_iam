@@ -1,0 +1,19 @@
+<ListRolesResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+	<ListRolesResult>
+		<IsTruncated>false</IsTruncated>
+		<Roles>
+			<member>
+				<Path>/</Path>
+                <AssumeRolePolicyDocument>%7B%22Version%22%3A%222012-10-17%22%2C%22Statement%22%3A%5B%7B%22Effect%22%3A%22Allow%22%2C%22Principal%22%3A%7B%22Service%22%3A%22ec2.amazonaws.com%22%7D%2C%22Action%22%3A%22sts%3AAssumeRole%22%7D%5D%7D</AssumeRolePolicyDocument>
+                <MaxSessionDuration>3600</MaxSessionDuration>
+				<RoleId>AGPAIDI3XY2DD433B73WG</RoleId>
+				<RoleName>foo</RoleName>
+				<Arn>arn:aws:iam::085326204011:role/foo</Arn>
+				<CreateDate>2018-10-19T22:04:37Z</CreateDate>
+			</member>
+		</Roles>
+	</ListRolesResult>
+	<ResponseMetadata>
+		<RequestId>81ca4919-d3fb-11e8-986e-5fbe089ad211</RequestId>
+	</ResponseMetadata>
+</ListRolesResponse>
