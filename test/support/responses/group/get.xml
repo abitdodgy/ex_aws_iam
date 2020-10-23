@@ -1,7 +1,15 @@
 <GetGroupResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
 	<GetGroupResult>
 		<IsTruncated>false</IsTruncated>
-		<Users/>
+		<Users>
+			<member>
+				<UserId>AIDAIWOYUHHXRAGTJC6H2</UserId>
+				<Path>/</Path>
+				<UserName>harry</UserName>
+				<Arn>arn:aws:iam::085326204011:user/harry</Arn>
+				<CreateDate>2018-10-19T22:04:37Z</CreateDate>
+			</member>
+		</Users>
 		<Group>
 			<Path>/</Path>
 			<GroupName>foo</GroupName>

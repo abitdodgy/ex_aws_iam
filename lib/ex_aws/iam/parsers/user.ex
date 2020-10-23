@@ -65,7 +65,16 @@ defmodule ExAws.Iam.Parsers.User do
       user_name: ~x"./UserName/text()"s,
       arn: ~x"./Arn/text()"s,
       user_id: ~x"./UserId/text()"s,
-      create_date: ~x"./CreateDate/text()"s
+      create_date: ~x"./CreateDate/text()"s,
+      tags: tags_path()
+    ]
+  end
+
+  defp tags_path do
+    [
+      ~x".//Tags/member"l,
+      key: ~x"./Key/text()"s,
+      value: ~x"./Value/text()"s,
     ]
   end
 end

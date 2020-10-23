@@ -49,7 +49,16 @@ defmodule ExAws.Iam.Parsers.GroupTest do
                path: "/",
                group_id: "AGPAIDI3XY2DD433B73WG",
                group_name: "foo"
-             }
+             },
+             users: [
+               %{
+                 arn: "arn:aws:iam::085326204011:user/harry",
+                 create_date: "2018-10-19T22:04:37Z",
+                 path: "/",
+                 user_id: "AIDAIWOYUHHXRAGTJC6H2",
+                 user_name: "harry"
+               }
+             ]
            },
            response_metadata: %{request_id: "9bed75fb-d3fc-11e8-ab86-e536efbf76bf"}
          },

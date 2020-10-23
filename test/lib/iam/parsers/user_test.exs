@@ -55,7 +55,8 @@ defmodule ExAws.Iam.Parsers.UserTest do
                create_date: "2018-10-14T18:31:50Z",
                path: "/",
                user_id: "AIDAJZTLCIRAWNUUPBREC",
-               user_name: "foo"
+               user_name: "foo",
+               tags: [%{key: "SomeKey0", value: "SomeValue0"}, %{key: "SomeKey1", value: "SomeValue1"}]
              }
            },
            response_metadata: %{request_id: "21a662e8-d27c-11e8-921e-e7a12b78bc94"}
@@ -80,7 +81,8 @@ defmodule ExAws.Iam.Parsers.UserTest do
                create_date: "2018-10-17T13:36:28Z",
                path: "/",
                user_id: "AIDAJMIUVQAU2TW666HH2",
-               user_name: "foo"
+               user_name: "foo",
+               tags: []
              }
            },
            response_metadata: %{
