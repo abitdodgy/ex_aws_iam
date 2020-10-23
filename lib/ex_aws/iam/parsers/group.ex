@@ -38,11 +38,13 @@ defmodule ExAws.Iam.Parsers.Group do
     SweetXml.xpath(xml, ~x"//GetGroupResponse",
       get_group_result: [
         ~x"//GetGroupResult",
-        group: group_path()
+        group: group_path(),
+        users: users_path()
       ],
       response_metadata: response_metadata_path()
     )
   end
+
 
   @doc """
   Parses XML from IAM `CreateGroup` response.
@@ -68,4 +70,16 @@ defmodule ExAws.Iam.Parsers.Group do
       create_date: ~x"./CreateDate/text()"s
     ]
   end
+
+  defp users_path do
+    [
+      ~x"./Users/member"l,
+      path: ~x"./Path/text()"s,
+      user_name: ~x"./UserName/text()"s,
+      arn: ~x"./Arn/text()"s,
+      user_id: ~x"./UserId/text()"s,
+      create_date: ~x"./CreateDate/text()"s
+    ]
+  end
+
 end
