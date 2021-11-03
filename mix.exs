@@ -5,7 +5,7 @@ defmodule Iam.MixProject do
     [
       app: :ex_aws_iam,
       version: "0.1.1",
-      elixir: "~> 1.7",
+      elixir: "~> 1.8.1",
       start_permanent: Mix.env() == :prod,
       description: description(),
       deps: deps(),
@@ -30,7 +30,7 @@ defmodule Iam.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_aws, "~> 2.0"},
+      {:ex_aws, "~> 2.1.1"},
       {:sweet_xml, "~> 0.6"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
