@@ -46,6 +46,7 @@ defmodule ExAws.Iam do
     * GetGroup
     * GetUser
     * ListAccessKeys
+    * ListAccountAliases
     * ListGroup
     * ListRoles
     * ListRoleTags
@@ -454,6 +455,18 @@ defmodule ExAws.Iam do
 
   def list_server_certificates(opts \\ []) do
     operation(:list_server_certificates, opts)
+  end
+  
+  @doc """
+  Creates an ExAws operation for a `ListAccountAliases` IAM request.
+  ## Options
+    * `:marker` - Use this parameter only when paginating results.
+    * `:max_items` - Use this only when paginating results to indicate
+     the maximum number of items you want in the response.
+  See shared options in moduledoc.
+  """
+  def list_account_aliases(opts \\ []) do
+    operation(:list_account_aliases, opts)
   end
 
   defp to_operation(params, opts) do

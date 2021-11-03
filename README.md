@@ -90,6 +90,7 @@ Parsers are currently implemented for the following actions:
   * GetGroup
   * GetUser
   * ListAccessKeys
+  * ListAccountAliases
   * ListGroup
   * ListRoles
   * ListRoleTags

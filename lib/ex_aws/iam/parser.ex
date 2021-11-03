@@ -12,6 +12,7 @@ defmodule ExAws.Iam.Parser do
 
   alias ExAws.Iam.Parsers.{
     AccessKey,
+    AccountAlias,
     Certificate,
     Group,
     Metadata,
@@ -88,5 +89,13 @@ defmodule ExAws.Iam.Parser do
 
   defp dispatch(xml, action) when action in @certificate_actions do
     Certificate.parse(xml, action)
+  end
+  
+  @account_alias_actions ~w[
+    ListAccountAliases
+  ]
+
+  defp dispatch(xml, action) when action in @account_alias_actions do
+    AccountAlias.parse(xml, action)
   end
 end
