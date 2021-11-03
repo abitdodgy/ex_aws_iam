@@ -93,7 +93,7 @@ defmodule ExAws.Iam do
 
   ## Options
 
-  Any options that the given action 
+  Any options that the given action
 
     * `parser` - A function to parse the request result. Defaults
       to `Parser.parser/2`.
@@ -453,6 +453,10 @@ defmodule ExAws.Iam do
     operation(:list_role_tags, [role_name: role_name] ++ opts)
   end
 
+  def list_server_certificates(opts \\ []) do
+    operation(:list_server_certificates, opts)
+  end
+  
   @doc """
   Creates an ExAws operation for a `ListAccountAliases` IAM request.
   ## Options
