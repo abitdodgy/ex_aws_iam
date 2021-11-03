@@ -47,4 +47,11 @@ defmodule ExAws.Iam.Utils do
   def response_metadata_path do
     [~x"//ResponseMetadata", request_id: ~x"./RequestId/text()"s]
   end
+
+  @doc """
+  Converts string boolean to boolean
+  """
+  def to_boolean(xpath) do
+    xpath |> SweetXml.transform_by(&(&1 == "true"))
+  end
 end

@@ -32,7 +32,8 @@ defmodule Iam.MixProject do
     [
       {:ex_aws, "~> 2.1.1"},
       {:sweet_xml, "~> 0.6"},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:hackney, "~> 1.6", only: [:dev, :test]}
     ]
   end
 
