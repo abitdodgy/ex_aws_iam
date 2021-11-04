@@ -10,7 +10,7 @@ defmodule ExAws.Iam.Parsers.Certificate do
       list_server_certificates_result: [
         ~x"//ListServerCertificatesResult",
         is_truncated: ~x"./IsTruncated/text()"s |> to_boolean(),
-        marker: ~x"./Marker/text()"s,
+        marker: ~x"./Marker/text()"o,
         server_certificate_metadata_list: [
           ~x"./ServerCertificateMetadataList/member"l,
           path: ~x"./Path/text()"s,
