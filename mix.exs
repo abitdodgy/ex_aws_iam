@@ -30,10 +30,10 @@ defmodule Iam.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_aws, "~> 2.1.1"},
+      {:ex_aws, "~> 2.4"},
       {:sweet_xml, "~> 0.6"},
       {:ex_doc, ">= 0.0.0", only: :dev},
-      {:hackney, "~> 1.6", only: [:dev, :test]}
+      {:hackney, "~> 1.18", only: [:dev, :test]}
     ]
   end
 
