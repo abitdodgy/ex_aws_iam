@@ -62,6 +62,8 @@ defmodule ExAws.Iam.Parser do
   @role_actions ~w[
     ListRoles
     ListRoleTags
+    CreateRole
+    GetRolePolicy
   ]
 
   defp dispatch(xml, action) when action in @role_actions do
@@ -75,6 +77,10 @@ defmodule ExAws.Iam.Parser do
     DeleteAccessKey
     DeleteGroup
     DeleteUser
+    DeleteRole
+    PutRolePolicy
+    DeleteRolePolicy
+    UpdateAssumeRolePolicy
   ]
 
   defp dispatch(xml, action) when action in @metadata_only_actions do

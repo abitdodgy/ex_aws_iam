@@ -466,5 +466,107 @@ defmodule ExAws.IamTest do
 
       assert Iam.list_role_tags("foo") == expected
     end
+
+    test "create_role/2 returns an ExAws CreateRole op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "CreateRole",
+        params: %{
+          "Action" => "CreateRole",
+          "RoleName" => "foo",
+          "AssumeRolePolicyDocument" => "{}",
+          "Version" => "2010-05-08",
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.create_role("foo", "{}") == expected
+    end
+
+    test "delete_role/1 returns an ExAws CreateRole op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "DeleteRole",
+        params: %{
+          "Action" => "DeleteRole",
+          "RoleName" => "foo",
+          "Version" => "2010-05-08",
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.delete_role("foo") == expected
+    end
+
+    test "get_role_policy/2 returns an ExAws CreateRole op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "GetRolePolicy",
+        params: %{
+          "Action" => "GetRolePolicy",
+          "RoleName" => "foo",
+          "PolicyName" => "bar",
+          "Version" => "2010-05-08",
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.get_role_policy("foo", "bar") == expected
+    end
+
+    test "update_assume_role_policy/2 returns an ExAws CreateRole op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "UpdateAssumeRolePolicy",
+        params: %{
+          "Action" => "UpdateAssumeRolePolicy",
+          "RoleName" => "foo",
+          "PolicyDocument" => "{}",
+          "Version" => "2010-05-08",
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.update_assume_role_policy("foo", "{}") == expected
+    end
+
+    test "put_role_policy/3 returns an ExAws CreateRole op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "PutRolePolicy",
+        params: %{
+          "Action" => "PutRolePolicy",
+          "RoleName" => "foo",
+          "PolicyName" => "bar",
+          "PolicyDocument" => "{}",
+          "Version" => "2010-05-08",
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.put_role_policy("foo", "bar", "{}") == expected
+    end
+
+    test "delete_role_policy/2 returns an ExAws CreateRole op struct" do
+      expected = %ExAws.Operation.Query{
+        action: "DeleteRolePolicy",
+        params: %{
+          "Action" => "DeleteRolePolicy",
+          "RoleName" => "foo",
+          "PolicyName" => "bar",
+          "Version" => "2010-05-08",
+        },
+        parser: &Parser.parse/2,
+        path: "/",
+        service: :iam
+      }
+
+      assert Iam.delete_role_policy("foo", "bar") == expected
+    end
   end
 end
