@@ -411,6 +411,47 @@ defmodule ExAws.Iam do
   end
 
   @doc """
+  Creates an ExAws operation for a `CreateRole' IAM request.
+
+  ## Parameters
+  
+    * `role_name` - The name of the role to create.
+
+    * `:assume_role_policy_document` - The trust relationship policy document
+      that grants an entity permission to assume the role.
+
+  ## Options
+
+    * `:description` - A description of the role.
+
+    * `:max_session_duration` - The maximum session duration (in seconds) that
+      you want to set for the specified role.
+
+    * `:path` - The path to the role. Defaults to "/".
+
+    * `:permissions_boundary` - The ARN of the policy that is used to set the
+      permissions boundary for the role.
+
+    * `:tags` - A list of tags that you want to attach to the newly created role.
+
+  """
+  def create_role(role_name, assume_role_policy_document, opts \\ []) do
+    operation(:create_role, [role_name: role_name, assume_role_policy_document: assume_role_policy_document] ++ opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `DeleteRole` IAM request.
+
+  ## Parameters
+
+    * `role_name` - The name of the role to delete.
+
+  """
+  def delete_role(role_name, opts \\ []) do
+    operation(:delete_role, [role_name: role_name] ++ opts)
+  end
+
+  @doc """
   Creates an ExAws operation for a `ListRoles` IAM request.
 
   ## Options
@@ -427,6 +468,20 @@ defmodule ExAws.Iam do
   """
   def list_roles(opts \\ []) do
     operation(:list_roles, opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for an `GetRolePolicy` IAM request.
+
+  ## Parameters
+
+    * `role_name` - The name of the role associated with the policy.
+
+    * `policy_name` - The name of the policy document to get.
+
+  """
+  def get_role_policy(role_name, policy_name, opts \\ []) do
+    operation(:get_role_policy, [role_name: role_name, policy_name: policy_name] ++ opts)
   end
 
   @doc """
@@ -452,6 +507,55 @@ defmodule ExAws.Iam do
     operation(:list_role_tags, [role_name: role_name] ++ opts)
   end
 
+  @doc """
+  Creates an ExAws operation for an `UpdateAssumeRolePolicy` IAM request.
+
+  @@ Parameters
+
+    * `role_name` - The name of the role to update.
+
+    * `policy_document` - The policy that grants an entity permission
+      to assume the role.
+
+  """
+  def update_assume_role_policy(role_name, policy_document, opts \\ []) do
+    operation(:update_assume_role_policy, [role_name: role_name, policy_document: policy_document] ++ opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `PutRolePolicy` IAM request.
+
+  ## Parameters
+
+    * `role_name` - The name of the role to associate the policy with.
+
+    * `policy_name` - The name of the policy document.
+
+    * `policy_document` - The JSON policy document that you want to use as the
+      content for the new policy.
+
+  """
+  def put_role_policy(role_name, policy_name, policy_document, opts \\ []) do
+    operation(:put_role_policy, [role_name: role_name, policy_name: policy_name, policy_document: policy_document] ++ opts)
+  end
+
+  @doc """
+  Creates an ExAws operation for a `DeleteRolePolicy` IAM request.
+
+  ## Parameters
+
+    * `role_name` - The name of the role the policy is associated with.
+
+    * `policy_name` - The name of the policy document.
+
+  """
+  def delete_role_policy(role_name, policy_name, opts \\ []) do
+    operation(:delete_role_policy, [role_name: role_name, policy_name: policy_name] ++ opts)
+  end
+
+  @doc """
+  Crekkk
+  """
   defp to_operation(params, opts) do
     %ExAws.Operation.Query{
       action: params["Action"],
