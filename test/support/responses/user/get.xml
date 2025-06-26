@@ -5,7 +5,17 @@
             <UserName>foo</UserName>
             <Arn>arn:aws:iam::085326204011:user/foo</Arn>
             <UserId>AIDAJZTLCIRAWNUUPBREC</UserId>
-            <CreateDate>2018-10-14T18:31:50Z</CreateDate>
+			<CreateDate>2018-10-14T18:31:50Z</CreateDate>
+			<Tags>
+				<member>
+					<Key>SomeKey0</Key>
+					<Value>SomeValue0</Value>
+				</member>
+				<member>
+					<Key>SomeKey1</Key>
+					<Value>SomeValue1</Value>
+				</member>
+			</Tags>
         </User>
     </GetUserResult>
     <ResponseMetadata>
